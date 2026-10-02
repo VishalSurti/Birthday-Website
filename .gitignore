@@ -4,6 +4,13 @@
 
 /public/private-assets/
 /content/private/
+/private-content/
+/personal-content/
+
+# Private data files
+*.private.json
+*.private.md
+*.private.txt
 
 # Environment variables / secrets
 .env
