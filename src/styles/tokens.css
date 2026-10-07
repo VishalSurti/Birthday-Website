@@ -1,0 +1,125 @@
+/* Shared Day 5/6 foundations. See DESIGN_SYSTEM.md and HIGH_FIDELITY_DESIGN.md. */
+:root {
+  --color-canvas: #f6f1e8;
+  --color-paper: #fffcf7;
+  --color-surface-soft: #efe8de;
+  --color-surface-plum: #f3eaee;
+  --color-surface-sage: #edf0e9;
+  --color-surface-clay: #f5ece4;
+  --color-ink: #201e1b;
+  --color-text-secondary: #6f6962;
+  --color-plum: #755a67;
+  --color-plum-strong: #5d4652;
+  --color-sage: #7c8474;
+  --color-clay: #b47c57;
+  --color-deep-ink: #171617;
+  --color-border: #ddd4ca;
+  --reveal-background: #171617;
+  --reveal-text: #fffcf7;
+  --reveal-text-secondary: #cfc6bc;
+  --reveal-plum: #a98898;
+  --reveal-clay: #c8966e;
+  --reveal-sage: #99a091;
+
+  --font-editorial:
+    'Newsreader Variable', Newsreader, Georgia, 'Times New Roman', serif;
+  --font-ui:
+    'Geist Variable', Geist, system-ui, -apple-system, BlinkMacSystemFont,
+    'Segoe UI', sans-serif;
+
+  --type-display-xl-size: 3rem;
+  --type-display-xl-line-height-min: 0.98;
+  --type-display-xl-line-height-max: 1.04;
+  --type-display-xl-line-height: 0.98;
+  --type-display-xl-weight: 500;
+  --type-display-xl-family: var(--font-editorial);
+  --type-display-size: 2.25rem;
+  --type-display-line-height: 1.08;
+  --type-display-weight: 500;
+  --type-display-family: var(--font-editorial);
+  --type-heading2-size: 1.75rem;
+  --type-heading2-line-height: 1.15;
+  --type-heading2-weight: 500;
+  --type-heading2-family: var(--font-editorial);
+  --type-heading3-editorial-size: 1.375rem;
+  --type-heading3-editorial-line-height: 1.25;
+  --type-heading3-editorial-weight: 500;
+  --type-heading3-editorial-family: var(--font-editorial);
+  --type-heading3-ui-size: 1.375rem;
+  --type-heading3-ui-line-height: 1.25;
+  --type-heading3-ui-weight: 600;
+  --type-heading3-ui-family: var(--font-ui);
+  --type-body-emotional-size: 1.1875rem;
+  --type-body-emotional-line-height: 1.65;
+  --type-body-emotional-weight: normal;
+  --type-body-emotional-family: var(--font-editorial);
+  --type-body-size: 1.0625rem;
+  --type-body-line-height: 1.6;
+  --type-body-weight: 400;
+  --type-body-family: var(--font-ui);
+  --type-ui-body-size-min: 15px;
+  --type-ui-body-size-max: 16px;
+  --type-ui-body-size: 0.9375rem;
+  --type-ui-body-line-height: 1.45;
+  --type-ui-body-weight-min: 450;
+  --type-ui-body-weight-max: 500;
+  --type-ui-body-weight: 450;
+  --type-ui-body-family: var(--font-ui);
+  --type-caption-size: 0.8125rem;
+  --type-caption-line-height: 1.4;
+  --type-caption-weight: 450;
+  --type-caption-family: var(--font-ui);
+  --type-micro-label-size: 0.6875rem;
+  --type-micro-label-line-height: 1.3;
+  --type-micro-label-weight: 600;
+  --type-micro-label-family: var(--font-ui);
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --radius-small: 10px;
+  --radius-medium: 16px;
+  --radius-large: 20px;
+  --radius-xl: 24px;
+  --radius-full: 999px;
+
+  --border-default: 1px solid var(--color-border);
+  --shadow-floating: 0 8px 30px rgb(32 30 27 / 8%);
+
+  --motion-fast-min: 120ms;
+  --motion-fast-max: 180ms;
+  --motion-fast: var(--motion-fast-min);
+  --motion-standard-min: 220ms;
+  --motion-standard-max: 320ms;
+  --motion-standard: var(--motion-standard-min);
+  --motion-transitional-min: 320ms;
+  --motion-transitional-max: 420ms;
+  --motion-transitional: var(--motion-transitional-min);
+  --motion-expressive-min: 450ms;
+  --motion-expressive-max: 700ms;
+  --motion-expressive: var(--motion-expressive-min);
+  --motion-easing: ease-out;
+
+  --content-width-home: 680px;
+  --content-width-reader: 640px;
+  --content-width-story: 760px;
+  --layout-gutter: var(--space-5);
+  --target-min: 44px;
+  --safe-area-top: env(safe-area-inset-top, 0px);
+  --safe-area-right: env(safe-area-inset-right, 0px);
+  --safe-area-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-area-left: env(safe-area-inset-left, 0px);
+}
+
+@media (min-width: 412px) {
+  :root {
+    --layout-gutter: var(--space-6);
+  }
+}

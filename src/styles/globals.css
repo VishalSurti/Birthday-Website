@@ -1,0 +1,77 @@
+html {
+  min-block-size: 100%;
+  background: var(--color-canvas);
+  color: var(--color-ink);
+  font-family: var(--font-ui);
+  font-size: 100%;
+  text-rendering: optimizeLegibility;
+  -webkit-text-size-adjust: 100%;
+  overflow-wrap: anywhere;
+}
+
+body,
+#root {
+  min-block-size: 100vh;
+  min-block-size: 100dvh;
+}
+
+body {
+  font-size: var(--type-body-size);
+  line-height: var(--type-body-line-height);
+  font-weight: var(--type-body-weight);
+}
+
+/* Width is overridable by future screens; this is not the final app shell. */
+.content-container {
+  inline-size: 100%;
+  max-inline-size: calc(
+    var(--content-width, var(--content-width-home)) + 2 * var(--layout-gutter) +
+      var(--safe-area-left) + var(--safe-area-right)
+  );
+  margin-inline: auto;
+  padding-block: calc(var(--space-8) + var(--safe-area-top))
+    calc(var(--space-8) + var(--safe-area-bottom));
+  padding-inline: calc(var(--layout-gutter) + var(--safe-area-left))
+    calc(var(--layout-gutter) + var(--safe-area-right));
+  min-inline-size: 0;
+}
+
+h1 {
+  margin-block: 0 var(--space-4);
+  font-family: var(--font-editorial);
+  font-size: var(--type-display-size);
+  line-height: var(--type-display-line-height);
+  font-weight: var(--type-display-weight);
+}
+
+p {
+  margin-block: 0 var(--space-4);
+}
+
+a {
+  color: var(--color-plum-strong);
+  text-underline-offset: 0.2em;
+}
+
+.recovery-link {
+  display: inline-flex;
+  align-items: center;
+  min-inline-size: var(--target-min);
+  min-block-size: var(--target-min);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-plum-strong);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

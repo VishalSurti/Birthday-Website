@@ -1,0 +1,16 @@
+# Preserve approved planning documents and private data.
+/*.md
+content/private/
+public/private-assets/
+private-content/
+personal-content/
+**/*.private.json
+**/*.private.md
+**/*.private.txt
+**/.env
+**/.env.*
+node_modules/
+dist/
+package-lock.json
+# Preserve upstream font licence text verbatim.
+public/app-assets/fonts/*-LICENSE.txt
