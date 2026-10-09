@@ -1,0 +1,26 @@
+.app-shell {
+  min-block-size: 100dvh;
+  background: var(--color-canvas);
+}
+
+.app-shell .app-shell__content {
+  padding-block-end: calc(
+    var(--navigation-height) + var(--safe-area-bottom) + var(--space-8)
+  );
+}
+
+.skip-link {
+  position: fixed;
+  inset-block-start: calc(var(--safe-area-top) + var(--space-2));
+  inset-inline-start: calc(var(--safe-area-left) + var(--layout-gutter));
+  z-index: 2;
+  padding: var(--space-3) var(--space-4);
+  min-block-size: var(--target-min);
+  background: var(--color-paper);
+  border-radius: var(--radius-small);
+  transform: translateY(calc(-100% - var(--safe-area-top) - var(--space-4)));
+}
+
+.skip-link:focus {
+  transform: none;
+}

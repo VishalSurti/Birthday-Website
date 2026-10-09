@@ -1,8 +1,10 @@
+import { PageHeader } from '../components/layout/PageHeader';
+
 export function HomePage() {
   return (
     <>
-      <h1>Home</h1>
-      <p>[PLACEHOLDER HOME]</p>
+      <PageHeader title="Home" />
+      <p>[FEATURE PLACEHOLDER — HOME]</p>
     </>
   );
 }

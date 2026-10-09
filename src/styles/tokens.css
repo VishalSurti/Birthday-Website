@@ -110,6 +110,8 @@
   --content-width-home: 680px;
   --content-width-reader: 640px;
   --content-width-story: 760px;
+  --navigation-content-height: 64px;
+  --navigation-height: calc(var(--navigation-content-height) + 1px);
   --layout-gutter: var(--space-5);
   --target-min: 44px;
   --safe-area-top: env(safe-area-inset-top, 0px);

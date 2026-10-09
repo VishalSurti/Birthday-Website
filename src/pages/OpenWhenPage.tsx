@@ -1,8 +1,10 @@
+import { PageHeader } from '../components/layout/PageHeader';
+
 export function OpenWhenPage() {
   return (
     <>
-      <h1>Open When</h1>
-      <p>[PLACEHOLDER LETTER COLLECTION]</p>
+      <PageHeader title="Open When" />
+      <p>[FEATURE PLACEHOLDER — OPEN WHEN]</p>
     </>
   );
 }

@@ -1,8 +1,10 @@
+import { PageHeader } from '../components/layout/PageHeader';
+
 export function ForYouPage() {
   return (
     <>
-      <h1>For You</h1>
-      <p>[PLACEHOLDER MESSAGE]</p>
+      <PageHeader title="For You" />
+      <p>[FEATURE PLACEHOLDER — FOR YOU — DAY 9]</p>
     </>
   );
 }

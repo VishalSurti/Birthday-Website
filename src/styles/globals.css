@@ -21,7 +21,7 @@ body {
   font-weight: var(--type-body-weight);
 }
 
-/* Width is overridable by future screens; this is not the final app shell. */
+/* Shared width and safe-area rules; the browsing shell adds navigation clearance. */
 .content-container {
   inline-size: 100%;
   max-inline-size: calc(
@@ -34,6 +34,18 @@ body {
   padding-inline: calc(var(--layout-gutter) + var(--safe-area-left))
     calc(var(--layout-gutter) + var(--safe-area-right));
   min-inline-size: 0;
+}
+
+.content-container--home {
+  --content-width: var(--content-width-home);
+}
+
+.content-container--reader {
+  --content-width: var(--content-width-reader);
+}
+
+.content-container--story {
+  --content-width: var(--content-width-story);
 }
 
 h1 {

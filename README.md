@@ -1,6 +1,6 @@
 # Birthday Website V1
 
-Day 7 frontend foundation: React, Vite, strict TypeScript, React Router and plain CSS. Approved product/design documents at the repository root remain authoritative; start with `AGENTS.md`.
+Frontend foundation: React, Vite, strict TypeScript, React Router and plain CSS. Approved product/design documents at the repository root remain authoritative; start with `AGENTS.md`.
 
 ## Local development
 
@@ -17,7 +17,7 @@ No environment variables are needed. Run `npm run check` for typecheck, lint, te
 
 ## Foundation boundaries
 
-Routes `/`, `/for-you`, `/open-when`, `/open-when/:letterId` and `/our-story` are placeholders. Unknown paths offer recovery to Home. Browser-history routing requires a future static host to fall back to `index.html` for application routes; Vite handles this locally. There is no public Reveal route, first-use state, persistence, app shell, bottom navigation or PWA implementation yet. Day 8 is App Shell & Navigation.
+Routes `/`, `/for-you`, `/open-when`, `/open-when/:letterId` and `/our-story` are placeholders. Unknown paths offer recovery to Home. Browser-history routing requires a future static host to fall back to `index.html` for application routes; Vite handles this locally. The shared Day 8 shell provides four-destination bottom navigation on top-level routes. Focused letter and unknown routes use a separate layout without primary navigation. Day 9 is For You; all feature pages remain placeholders. There is no public Reveal route, first-use state, persistence or PWA implementation yet.
 
 CSS foundations live in `src/styles/`; route declarations in `src/app/`. Newsreader and Geist use locally bundled normal Latin variable fonts with `font-display: swap` and approved fallbacks. Extend language subsets only when real content requires them.
 
