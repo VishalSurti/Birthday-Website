@@ -1,0 +1,220 @@
+.for-you-tabs {
+  display: flex;
+  gap: var(--space-6);
+  margin-block-end: var(--space-8);
+}
+
+.for-you-tabs button {
+  min-block-size: var(--target-min);
+  padding: var(--space-2) 0;
+  border: 0;
+  border-block-end: 2px solid transparent;
+  color: var(--color-text-secondary);
+  background: transparent;
+  cursor: pointer;
+}
+
+.for-you-tabs button[aria-pressed='true'] {
+  color: var(--color-ink);
+  border-block-end-color: var(--color-plum);
+  font-weight: var(--type-heading3-ui-weight);
+}
+
+.for-you-featured {
+  display: grid;
+  gap: var(--space-6);
+}
+
+.for-you-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-4);
+  inline-size: 100%;
+  min-block-size: 260px;
+  padding: var(--space-6);
+  border: var(--border-default);
+  border-radius: var(--radius-large);
+  color: var(--color-ink);
+  background: var(--color-surface-plum);
+  text-align: start;
+  cursor: pointer;
+  overflow-wrap: anywhere;
+  transition:
+    transform var(--motion-fast) var(--motion-easing),
+    border-color var(--motion-fast) var(--motion-easing);
+}
+
+.for-you-card:active {
+  transform: scale(0.985);
+  border-color: var(--color-plum);
+}
+
+.for-you-label {
+  font-size: var(--type-micro-label-size);
+  font-weight: var(--type-micro-label-weight);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-plum-strong);
+}
+
+.for-you-card__title,
+.for-you-heading,
+.for-you-reader__title {
+  margin-block: 0 var(--space-4);
+  font-family: var(--font-editorial);
+  font-size: var(--type-heading2-size);
+  line-height: var(--type-heading2-line-height);
+  font-weight: var(--type-heading2-weight);
+}
+
+.for-you-card__action {
+  margin-block-start: auto;
+  padding-block-start: var(--space-6);
+  font-size: var(--type-ui-body-size);
+  color: var(--color-plum-strong);
+}
+
+.for-you-detail {
+  font-family: var(--font-ui);
+  font-size: var(--type-caption-size);
+  line-height: var(--type-caption-line-height);
+  color: var(--color-text-secondary);
+}
+
+.for-you-secondary {
+  min-block-size: 52px;
+  padding: var(--space-3) var(--space-6);
+  border: var(--border-default);
+  border-radius: var(--radius-medium);
+  color: var(--color-ink);
+  background: var(--color-paper);
+  font-size: var(--type-ui-body-size);
+  font-weight: var(--type-heading3-ui-weight);
+  cursor: pointer;
+}
+
+.for-you-collection {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.for-you-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  inline-size: 100%;
+  min-block-size: 80px;
+  padding: var(--space-4) var(--space-1);
+  border: 0;
+  border-block-end: var(--border-default);
+  background: transparent;
+  color: var(--color-ink);
+  text-align: start;
+  cursor: pointer;
+}
+
+.for-you-row__text {
+  display: grid;
+  gap: var(--space-1);
+  min-inline-size: 0;
+}
+
+.for-you-row__title {
+  overflow-wrap: anywhere;
+  font-size: var(--type-ui-body-size);
+}
+
+/* Native showModal makes background content inert. Hide the bar visually too. */
+body:has(.for-you-reader[open]) .bottom-navigation {
+  visibility: hidden;
+}
+
+.for-you-reader {
+  position: fixed;
+  inset: 0;
+  inline-size: 100%;
+  max-inline-size: none;
+  block-size: 100%;
+  block-size: 100dvh;
+  max-block-size: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  color: var(--color-ink);
+  background: var(--color-paper);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  animation: for-you-enter var(--motion-standard) var(--motion-easing);
+}
+
+.for-you-reader::backdrop {
+  background: var(--color-paper);
+}
+
+.for-you-reader__content {
+  max-inline-size: calc(
+    var(--content-width-reader) + 2 * var(--space-6) + var(--safe-area-left) +
+      var(--safe-area-right)
+  );
+  margin-inline: auto;
+  padding-block: calc(var(--space-4) + var(--safe-area-top))
+    calc(var(--space-8) + var(--safe-area-bottom));
+  padding-inline: calc(var(--space-6) + var(--safe-area-left))
+    calc(var(--space-6) + var(--safe-area-right));
+}
+
+.for-you-reader__toolbar {
+  position: sticky;
+  inset-block-start: 0;
+  padding-block: calc(var(--space-2) + var(--safe-area-top)) var(--space-2);
+  margin-block-end: var(--space-8);
+  background: var(--color-paper);
+}
+
+.for-you-close {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-block-size: var(--target-min);
+  min-inline-size: var(--target-min);
+  padding: var(--space-2);
+  border: 0;
+  background: var(--color-paper);
+  color: var(--color-plum-strong);
+  cursor: pointer;
+}
+
+.for-you-reading__body {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font-family: var(--font-editorial);
+  font-size: var(--type-body-emotional-size);
+  line-height: var(--type-body-emotional-line-height);
+}
+
+.for-you-reading--long .for-you-reading__body {
+  font-size: 1.125rem;
+}
+
+@keyframes for-you-enter {
+  from {
+    opacity: 0.6;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .for-you-card:active {
+    transform: none;
+  }
+  .for-you-reader {
+    animation: none;
+  }
+}

@@ -1,7 +1,7 @@
 # Birthday Website — Project Status
 
-**Current phase:** Day 8 — App Shell & Navigation complete
-**Next phase:** Day 9 — For You
+**Current phase:** Day 9 — For You complete
+**Next phase:** Day 10 — Open When
 
 ## Completed / Locked
 
@@ -13,6 +13,7 @@
 - Day 6 — Design System / repository preparation
 - Day 7 — Frontend Project Foundation
 - Day 8 — App Shell & Navigation
+- Day 9 — For You
 
 ## Foundation Decisions
 
@@ -21,7 +22,7 @@
 - Plain CSS / CSS custom properties for approved tokens, reset, global styling, content widths and safe areas.
 - Self-hosted Fontsource Newsreader and Geist normal Latin variable fonts, visible fallback text and `font-display: swap`.
 - ESLint, Prettier and a minimal Vitest / React Testing Library / jsdom foundation; tracked-path privacy safeguard.
-- Full health checks, production build and Chrome checks across all eight reference viewports passed. All routes remain placeholders.
+- Full health checks, production build and Chrome checks across all eight reference viewports passed. At Day 7 completion, all routes were placeholders.
 
 ## Day 8 Shell Decisions
 
@@ -32,14 +33,24 @@
 - Keyboard focus stays on persistent navigation during peer route changes; a skip link moves focus to content without changing history.
 - Ten tests, all required health checks and production build pass. Chrome checks passed at all eight reference viewports, including keyboard/history, long-content clearance, reduced motion and simulated safe areas. Safari/iOS and physical-device testing remain unverified.
 
+## Day 9 For You Decisions
+
+- Featured and All Messages are browsing states within `/for-you`; the complete collection retains authored order and includes seen and unseen messages.
+- Deliberate opening reaches a full-height Paper reader before recording seen state. Read again retains the original session featured identity; Discover another first presents a closed candidate requiring its own activation.
+- Pure injectable-random selection prefers unseen messages, falls back to the full collection and avoids immediate eligible repeats. Discovery excludes the last displayed candidate when alternatives exist.
+- A small feature-scoped store uses versioned localStorage for seen IDs and the last featured ID, and sessionStorage for the active featured ID across route changes/reloads. Malformed, incompatible or unavailable storage uses safe defaults and in-memory operation. Removed IDs are ignored.
+- Native modal dialog contains focus, hides primary navigation, supports Close/Escape and uses same-route history state for browser Back. Focus and collection scroll are restored; long writing scrolls naturally within the reader.
+- Six unmistakable public development fixtures exercise short, untitled and long content. Private integration remains deferred; no later feature or unrelated persistence was added.
+- 35 tests, required project checks and production build pass. Chrome verification passed all eight reference viewports, reader/discovery/collection flows, session reload, keyboard focus, reduced motion and simulated safe areas. Safari/iOS and physical-device QA remain unverified.
+
 ## Next
 
-1. Implement Day 9 — For You from the locked documents.
+1. Implement Day 10 — Open When from the locked documents.
 2. Continue later feature implementation in its scheduled phase.
 
 ## Genuine Implementation Decisions Remaining
 
-- exact local-storage/session-state implementation
+- broader application persistence for later features; For You storage is implemented, while letter, Reveal and installation state remain deferred
 - PWA/service-worker tooling and cache strategy
 - final PWA name and icon artwork
 - final Open Graph preview artwork
