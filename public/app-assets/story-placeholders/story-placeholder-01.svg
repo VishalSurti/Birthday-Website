@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="720" viewBox="0 0 960 720">
+  <rect width="960" height="720" fill="#efe8de"/>
+  <rect x="115.19999999999999" y="108.0" width="595.2" height="417.59999999999997" rx="24" fill="#edf0e9"/>
+  <circle cx="643.2" cy="345.59999999999997" r="144.0" fill="#755a67" opacity=".5"/>
+  <path d="M 153.6 518.4 H 806.4" stroke="#755a67" stroke-width="2"/>
+  <text x="115.19999999999999" y="633.6" fill="#5d4652" font-family="sans-serif" font-size="20">DEVELOPMENT PLACEHOLDER 01</text>
+</svg>

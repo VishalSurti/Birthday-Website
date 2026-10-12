@@ -1,7 +1,7 @@
 # Birthday Website — Project Status
 
-**Current phase:** Day 10 — Open When complete
-**Next phase:** Day 11 — Our Story
+**Current phase:** Day 11 — Our Story complete
+**Next phase:** Day 12 — Birthday Reveal
 
 ## Completed / Locked
 
@@ -15,6 +15,7 @@
 - Day 8 — App Shell & Navigation
 - Day 9 — For You
 - Day 10 — Open When
+- Day 11 — Our Story
 
 ## Foundation Decisions
 
@@ -55,14 +56,25 @@
 - 54 tests, all required checks and production build pass. Chrome verification passed all eight reference viewports, first/repeat opening, lower-card return context, direct/invalid routes, keyboard focus, reduced motion, simulated safe areas and storage denial. Safari/iOS and physical-device QA remain unverified.
 - For You runtime behavior is unchanged; one existing regression test now waits for its post-render seen-state effect. No dependencies, private content or later feature work were added.
 
+## Day 11 Our Story Decisions
+
+- Continuous `/our-story` narrative with introduction, 12 authored-order public placeholder chapters and open-ended closing; optional time labels/highlights are omitted when absent.
+- Varied text-only, single-image, paired-image and three-image compositions, with generous chapter spacing and constrained narrative width. Compact phones stack two-image memories; three-image memories retain a larger primary image above a supporting pair.
+- Six locally authored geometric SVGs are development-only. Root-relative content references and reserved image sizing support later private replacements; shared image-failure handling preserves writing and viewer escape/navigation.
+- Native full-screen Deep Ink dialog contains each photo without cropping and receives only its originating memory. Previous/Next, keyboard arrows and thresholded touch swipe stop at that memory's first/last photo. Single-image viewers have no photo navigation or pagination dots.
+- Same-route history supports Close/Escape/browser Back; photo changes use component state without extra history entries. Native modality isolates the background and hides navigation; originating focus and scroll position are restored.
+- No Story storage utility, localStorage/sessionStorage calls, read/view/completion state, memory routes or gallery route. Viewer/history context is transient only; Reveal/install persistence remains deferred.
+- 84 tests, all required checks and production build pass. Chrome verified all eight reference viewports, real emulated touch swipes, both photo boundaries, selected-image entry, focus/scroll restoration, reduced motion, simulated safe areas and failed images. Instrumented Story flows made zero browser-storage calls.
+- Browser regressions passed for Home, For You reader/seen persistence, Open When reader/opened persistence, navigation and unknown-route recovery. For You and Open When runtime code/tests were unchanged. Safari/iOS and physical-device QA remain unverified.
+
 ## Next
 
-1. Implement Day 11 — Our Story from the locked documents.
+1. Implement Day 12 — Birthday Reveal from the locked documents.
 2. Continue later feature implementation in its scheduled phase.
 
 ## Genuine Implementation Decisions Remaining
 
-- broader application persistence for later features; For You and Open When storage are implemented, while Reveal and installation state remain deferred
+- broader application persistence for later features; For You and Open When storage are implemented; Our Story intentionally has no persistent memory-view state; Reveal and installation state remain deferred
 - PWA/service-worker tooling and cache strategy
 - final PWA name and icon artwork
 - final Open Graph preview artwork

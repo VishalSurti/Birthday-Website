@@ -1,10 +1,6 @@
-import { PageHeader } from '../components/layout/PageHeader';
+import sampleStory from '../../content/sample/our-story.json';
+import { OurStoryExperience } from '../features/our-story/OurStoryExperience';
 
 export function OurStoryPage() {
-  return (
-    <>
-      <PageHeader title="Our Story" />
-      <p>[FEATURE PLACEHOLDER — OUR STORY]</p>
-    </>
-  );
+  return <OurStoryExperience content={sampleStory} />;
 }

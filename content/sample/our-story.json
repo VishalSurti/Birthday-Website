@@ -1,0 +1,173 @@
+{
+  "introduction": "[PLACEHOLDER STORY INTRODUCTION — DEVELOPMENT ONLY]",
+  "memories": [
+    {
+      "id": "memory-01",
+      "title": "[PLACEHOLDER MEMORY TITLE 01]",
+      "body": "[PLACEHOLDER MEMORY STORY 01 — DEVELOPMENT ONLY]",
+      "timeLabel": "[PLACEHOLDER BROAD TIME LABEL]",
+      "images": [
+        {
+          "src": "/app-assets/story-placeholders/story-placeholder-01.svg",
+          "alt": "Development placeholder image 01 for Story layout testing.",
+          "width": 960,
+          "height": 720
+        }
+      ]
+    },
+    {
+      "id": "memory-02",
+      "title": "[PLACEHOLDER MEMORY TITLE 02]",
+      "body": "[PLACEHOLDER MEMORY STORY 02 — DEVELOPMENT ONLY]",
+      "highlightedLine": "[PLACEHOLDER HIGHLIGHTED LINE — DEVELOPMENT ONLY]"
+    },
+    {
+      "id": "memory-03",
+      "title": "[PLACEHOLDER MEMORY TITLE 03]",
+      "body": "[PLACEHOLDER MEMORY STORY 03 — DEVELOPMENT ONLY]",
+      "images": [
+        {
+          "src": "/app-assets/story-placeholders/story-placeholder-02.svg",
+          "alt": "Development placeholder image 02 for Story layout testing.",
+          "width": 720,
+          "height": 960
+        },
+        {
+          "src": "/app-assets/story-placeholders/story-placeholder-03.svg",
+          "alt": "Development placeholder image 03 for Story layout testing.",
+          "width": 960,
+          "height": 640
+        }
+      ]
+    },
+    {
+      "id": "memory-04",
+      "title": "[PLACEHOLDER LONG MEMORY TITLE FOR NATURAL WRAPPING]",
+      "body": "[PLACEHOLDER MEMORY STORY 04 — DEVELOPMENT ONLY]",
+      "timeLabel": "[PLACEHOLDER BROAD TIME LABEL]",
+      "images": [
+        {
+          "src": "/app-assets/story-placeholders/story-placeholder-04.svg",
+          "alt": "Development placeholder image 04 for Story layout testing.",
+          "width": 800,
+          "height": 800
+        }
+      ]
+    },
+    {
+      "id": "memory-05",
+      "title": "[PLACEHOLDER MEMORY TITLE 05]",
+      "body": "[PLACEHOLDER MEMORY STORY 05 — DEVELOPMENT ONLY]"
+    },
+    {
+      "id": "memory-06",
+      "title": "[PLACEHOLDER MEMORY TITLE 06]",
+      "body": "[PLACEHOLDER MEMORY STORY 06 — DEVELOPMENT ONLY]",
+      "timeLabel": "[PLACEHOLDER BROAD TIME LABEL]",
+      "highlightedLine": "[PLACEHOLDER HIGHLIGHTED LINE — DEVELOPMENT ONLY]",
+      "images": [
+        {
+          "src": "/app-assets/story-placeholders/story-placeholder-01.svg",
+          "alt": "Development placeholder image 01 for Story layout testing.",
+          "width": 960,
+          "height": 720
+        },
+        {
+          "src": "/app-assets/story-placeholders/story-placeholder-05.svg",
+          "alt": "Development placeholder image 05 for Story layout testing.",
+          "width": 960,
+          "height": 720
+        },
+        {
+          "src": "/app-assets/story-placeholders/story-placeholder-06.svg",
+          "alt": "Development placeholder image 06 for Story layout testing.",
+          "width": 720,
+          "height": 960
+        }
+      ]
+    },
+    {
+      "id": "memory-07",
+      "title": "[PLACEHOLDER MEMORY TITLE 07]",
+      "body": "[PLACEHOLDER LONG MEMORY STORY — PARAGRAPH 1. DEVELOPMENT TEXT ONLY, USED TO VERIFY WRAPPING, PARAGRAPH SPACING AND CONTINUOUS STORY SCROLLING.]\n\n[PLACEHOLDER LONG MEMORY STORY — PARAGRAPH 2. DEVELOPMENT TEXT ONLY, USED TO VERIFY WRAPPING, PARAGRAPH SPACING AND CONTINUOUS STORY SCROLLING.]\n\n[PLACEHOLDER LONG MEMORY STORY — PARAGRAPH 3. DEVELOPMENT TEXT ONLY, USED TO VERIFY WRAPPING, PARAGRAPH SPACING AND CONTINUOUS STORY SCROLLING.]\n\n[PLACEHOLDER LONG MEMORY STORY — PARAGRAPH 4. DEVELOPMENT TEXT ONLY, USED TO VERIFY WRAPPING, PARAGRAPH SPACING AND CONTINUOUS STORY SCROLLING.]"
+    },
+    {
+      "id": "memory-08",
+      "title": "[PLACEHOLDER MEMORY TITLE 08]",
+      "body": "[PLACEHOLDER MEMORY STORY 08 — DEVELOPMENT ONLY]",
+      "images": [
+        {
+          "src": "/app-assets/story-placeholders/story-placeholder-03.svg",
+          "alt": "Development placeholder image 03 for Story layout testing.",
+          "width": 960,
+          "height": 640
+        }
+      ]
+    },
+    {
+      "id": "memory-09",
+      "title": "[PLACEHOLDER MEMORY TITLE 09]",
+      "body": "[PLACEHOLDER MEMORY STORY 09 — DEVELOPMENT ONLY]",
+      "images": [
+        {
+          "src": "/app-assets/story-placeholders/story-placeholder-04.svg",
+          "alt": "Development placeholder image 04 for Story layout testing.",
+          "width": 800,
+          "height": 800
+        },
+        {
+          "src": "/app-assets/story-placeholders/story-placeholder-02.svg",
+          "alt": "Development placeholder image 02 for Story layout testing.",
+          "width": 720,
+          "height": 960
+        }
+      ]
+    },
+    {
+      "id": "memory-10",
+      "title": "[PLACEHOLDER MEMORY TITLE 10]",
+      "body": "[PLACEHOLDER MEMORY STORY 10 — DEVELOPMENT ONLY]",
+      "highlightedLine": "[PLACEHOLDER HIGHLIGHTED LINE — DEVELOPMENT ONLY]"
+    },
+    {
+      "id": "memory-11",
+      "title": "[PLACEHOLDER MEMORY TITLE 11]",
+      "body": "[PLACEHOLDER MEMORY STORY 11 — DEVELOPMENT ONLY]",
+      "timeLabel": "[PLACEHOLDER BROAD TIME LABEL]",
+      "images": [
+        {
+          "src": "/app-assets/story-placeholders/story-placeholder-06.svg",
+          "alt": "Development placeholder image 06 for Story layout testing.",
+          "width": 720,
+          "height": 960
+        },
+        {
+          "src": "/app-assets/story-placeholders/story-placeholder-01.svg",
+          "alt": "Development placeholder image 01 for Story layout testing.",
+          "width": 960,
+          "height": 720
+        },
+        {
+          "src": "/app-assets/story-placeholders/story-placeholder-05.svg",
+          "alt": "Development placeholder image 05 for Story layout testing.",
+          "width": 960,
+          "height": 720
+        }
+      ]
+    },
+    {
+      "id": "memory-12",
+      "title": "[PLACEHOLDER MEMORY TITLE 12]",
+      "body": "[PLACEHOLDER MEMORY STORY 12 — DEVELOPMENT ONLY]",
+      "images": [
+        {
+          "src": "/app-assets/story-placeholders/story-placeholder-05.svg",
+          "alt": "Development placeholder image 05 for Story layout testing.",
+          "width": 960,
+          "height": 720
+        }
+      ]
+    }
+  ],
+  "closing": "[PLACEHOLDER OPEN-ENDED STORY CLOSING — OUR STORY SO FAR]"
+}

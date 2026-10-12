@@ -92,6 +92,17 @@ describe('application shell and primary navigation', () => {
     expect(screen.getByRole('navigation', { name: 'Primary' })).toBeTruthy();
   });
 
+  it.each(['/our-story/memory-01', '/our-story/photo/1', '/gallery'])(
+    'does not introduce a separate Story or gallery route at %s',
+    (path) => {
+      renderAt(path);
+      expect(
+        screen.getByRole('heading', { name: 'Page not found' }),
+      ).toBeTruthy();
+      expect(screen.queryByRole('dialog')).toBeNull();
+    },
+  );
+
   it('recovers an unknown URL to Home outside the primary shell', async () => {
     renderAt('/unknown/nested-page');
     expect(
