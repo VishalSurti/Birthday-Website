@@ -1,7 +1,7 @@
 # Birthday Website — Project Status
 
-**Current phase:** Day 9 — For You complete
-**Next phase:** Day 10 — Open When
+**Current phase:** Day 10 — Open When complete
+**Next phase:** Day 11 — Our Story
 
 ## Completed / Locked
 
@@ -14,6 +14,7 @@
 - Day 7 — Frontend Project Foundation
 - Day 8 — App Shell & Navigation
 - Day 9 — For You
+- Day 10 — Open When
 
 ## Foundation Decisions
 
@@ -43,14 +44,25 @@
 - Six unmistakable public development fixtures exercise short, untitled and long content. Private integration remains deferred; no later feature or unrelated persistence was added.
 - 35 tests, required project checks and production build pass. Chrome verification passed all eight reference viewports, reader/discovery/collection flows, session reload, keyboard focus, reduced motion and simulated safe areas. Safari/iOS and physical-device QA remain unverified.
 
+## Day 10 Open When Decisions
+
+- Nine unmistakable public placeholder letters; validation retains authored order and the first valid ID, ignoring malformed items. Optional images remain deferred until private content integration.
+- Single-column collection with constrained desktop width, abstract seam motif and textual Unopened / Opened before states; all letters remain accessible and reopenable.
+- First opening uses the 320ms transitional token; repeat opening uses the lighter 220ms standard token. Reduced motion navigates directly; routing uses a cancellable timer and never depends on animation events.
+- Dedicated `/open-when/:letterId` Paper reader remains outside the navigation shell, with safe-area gutters, long natural page scrolling and no Previous/Next controls.
+- Independent versioned localStorage persists only opened-letter IDs after a valid reader commits, including direct entry. Duplicate/stale IDs are ignored; malformed/incompatible/unavailable storage falls back safely to in-memory operation.
+- Collection-originated Back uses known history context; direct-entry and invalid-reader recovery safely lead to Open When. Temporary in-memory context restores the selected card's focus and approximate collection scroll position.
+- 54 tests, all required checks and production build pass. Chrome verification passed all eight reference viewports, first/repeat opening, lower-card return context, direct/invalid routes, keyboard focus, reduced motion, simulated safe areas and storage denial. Safari/iOS and physical-device QA remain unverified.
+- For You runtime behavior is unchanged; one existing regression test now waits for its post-render seen-state effect. No dependencies, private content or later feature work were added.
+
 ## Next
 
-1. Implement Day 10 — Open When from the locked documents.
+1. Implement Day 11 — Our Story from the locked documents.
 2. Continue later feature implementation in its scheduled phase.
 
 ## Genuine Implementation Decisions Remaining
 
-- broader application persistence for later features; For You storage is implemented, while letter, Reveal and installation state remain deferred
+- broader application persistence for later features; For You and Open When storage are implemented, while Reveal and installation state remain deferred
 - PWA/service-worker tooling and cache strategy
 - final PWA name and icon artwork
 - final Open Graph preview artwork

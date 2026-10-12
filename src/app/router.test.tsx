@@ -1,6 +1,6 @@
 import { fireEvent, render, screen, within } from '@testing-library/react';
 import { BrowserRouter } from 'react-router';
-import { afterEach, describe, expect, it } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { AppRoutes } from './router';
 
 const destinations = [
@@ -19,7 +19,13 @@ function renderAt(path: string) {
   );
 }
 
-afterEach(() => window.history.replaceState(null, '', '/'));
+beforeEach(() => {
+  vi.spyOn(window, 'scrollTo').mockImplementation(() => {});
+});
+afterEach(() => {
+  window.history.replaceState(null, '', '/');
+  vi.restoreAllMocks();
+});
 
 describe('application shell and primary navigation', () => {
   it.each(destinations)(
@@ -73,12 +79,11 @@ describe('application shell and primary navigation', () => {
     expect(window.history.length).toBe(length);
   });
 
-  it('keeps the focused letter placeholder outside primary navigation with a parent escape', async () => {
+  it('keeps the focused letter reader outside primary navigation with a parent escape', async () => {
     renderAt('/open-when/letter-01');
     expect(
-      screen.getByRole('heading', { name: 'Open When letter' }),
+      screen.getByRole('heading', { name: '[PLACEHOLDER OPEN WHEN TITLE 01]' }),
     ).toBeTruthy();
-    expect(screen.getByText('letter-01')).toBeTruthy();
     expect(screen.queryByRole('navigation', { name: 'Primary' })).toBeNull();
     fireEvent.click(screen.getByRole('link', { name: 'Back to Open When' }));
     expect(

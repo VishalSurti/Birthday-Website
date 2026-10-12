@@ -1,10 +1,6 @@
-import { PageHeader } from '../components/layout/PageHeader';
+import { OpenWhenCollection } from '../features/open-when/OpenWhenCollection';
+import { getOpenWhenStore } from '../features/open-when/openWhenStore';
 
 export function OpenWhenPage() {
-  return (
-    <>
-      <PageHeader title="Open When" />
-      <p>[FEATURE PLACEHOLDER — OPEN WHEN]</p>
-    </>
-  );
+  return <OpenWhenCollection store={getOpenWhenStore()} />;
 }

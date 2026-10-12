@@ -18,8 +18,10 @@ export function AppRoutes() {
         <Route path={routes.openWhen} element={<OpenWhenPage />} />
         <Route path={routes.ourStory} element={<OurStoryPage />} />
       </Route>
-      <Route element={<RootLayout />}>
+      <Route element={<RootLayout className="letter-layout" />}>
         <Route path={routes.letter} element={<LetterPage />} />
+      </Route>
+      <Route element={<RootLayout />}>
         <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>

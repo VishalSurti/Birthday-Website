@@ -93,12 +93,12 @@ describe('For You flows', () => {
       screen.getByRole('button', { name: 'Close' }),
     );
     await screen.findByText('[PLACEHOLDER BODY A]');
-    expect(store.getSnapshot().seenIds).toEqual(['a']);
+    await waitFor(() => expect(store.getSnapshot().seenIds).toEqual(['a']));
     await closeReader();
     expect(document.activeElement).toBe(origin);
     fireEvent.click(screen.getByRole('button', { name: 'Read again' }));
     await screen.findByText('[PLACEHOLDER BODY A]');
-    expect(store.getSnapshot().seenIds).toEqual(['a']);
+    await waitFor(() => expect(store.getSnapshot().seenIds).toEqual(['a']));
     await closeReader();
   });
 
