@@ -1,5 +1,6 @@
 .for-you-tabs {
   display: flex;
+  flex-wrap: wrap;
   gap: var(--space-6);
   margin-block-end: var(--space-8);
 }

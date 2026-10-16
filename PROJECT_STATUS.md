@@ -1,7 +1,7 @@
 # Birthday Website — Project Status
 
-**Current phase:** Day 13 — Media Support complete
-**Next phase:** Day 14 — Mobile Responsiveness
+**Current phase:** Day 14 — Mobile Responsiveness complete
+**Next phase:** Day 15 — Local Persistence
 
 ## Completed / Locked
 
@@ -18,6 +18,7 @@
 - Day 11 — Our Story
 - Day 12 — Birthday Reveal
 - Day 13 — Media Support
+- Day 14 — Mobile Responsiveness
 
 ## Foundation Decisions
 
@@ -90,9 +91,18 @@
 - 153 tests, all seven required health checks and the production build pass. Chrome media checks passed all eight reference sizes, including image failures, viewer controls, Reveal regressions and simulated safe areas. Network inspection found 13 of 14 Story images lazy and only three initially requested at 375px; the opening made one High-priority image request. Safari/iOS and physical-device testing remain unverified.
 - Public/private separation remains intact. Real photo selection, dimensions, contextual alt text and compression remain private-content integration work; no audio/video, PWA caching or Day 14 general responsive changes were added.
 
+## Day 14 Responsive Decisions
+
+- At normal text size, the full baseline passed all nine viewport sizes, including the additional 320 × 568 stress test. Existing content widths, safe areas, media compositions, readers, viewer and More sheet were retained.
+- At 200% root text size, compact-phone navigation labels overlapped and For You controls broke words. Navigation labels now wrap with aligned icons; shell clearance reserves two label lines, and the existing For You control row wraps naturally.
+- Enlarged Reveal writing was clipped by its fixed viewport height. Reveal now keeps a full-viewport minimum and grows naturally when needed; the existing landscape rule reserves text-scaled space above the cue. Completion timing, replay and storage behavior are unchanged.
+- Four CSS files changed; existing tokens and the existing landscape query were reused. No new breakpoints, dependencies, JavaScript viewport branches, duplicated markup or later-phase features were added.
+- Final Chrome 155 checks passed 320 × 568, 360 × 800, 375 × 667, 390 × 844, 412 × 915, 430 × 932, 844 × 390, 768 × 1024 and 1440 × 900. Checks covered horizontal overflow, controls, navigation clearance, media states, Story compositions, dialogs, opening/Reveal, simulated safe areas and enlarged text. Keyboard/history, emulated touch, reduced motion and media-failure regressions passed; Story still made zero persistent-storage calls.
+- All seven required project commands passed, including all 153 tests and the production build. Safari/iOS, Android browser and physical-device testing remain unverified.
+
 ## Next
 
-1. Implement Day 14 — Mobile Responsiveness from the locked documents.
+1. Implement Day 15 — Local Persistence from the locked documents.
 2. Continue later feature implementation in its scheduled phase.
 
 ## Genuine Implementation Decisions Remaining

@@ -73,7 +73,7 @@
 .birthday-reveal {
   position: relative;
   isolation: isolate;
-  block-size: 100dvh;
+  min-block-size: 100dvh;
   display: grid;
   place-items: center;
   overflow: hidden;
@@ -253,7 +253,12 @@
 @media (max-height: 550px) and (min-width: 600px) {
   .reveal-scene {
     gap: var(--space-3);
-    padding-block: var(--space-8);
+    padding-block: var(--space-8)
+      max(
+        var(--space-8),
+        var(--space-4) + var(--type-caption-size) *
+          var(--type-caption-line-height)
+      );
   }
   .reveal-scene:has(.reveal-image) {
     display: grid;

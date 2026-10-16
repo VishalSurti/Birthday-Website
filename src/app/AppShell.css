@@ -4,8 +4,14 @@
 }
 
 .app-shell .app-shell__content {
+  /* Allow two enlarged label lines plus the icon/control area in the fixed bar. */
   padding-block-end: calc(
-    var(--navigation-height) + var(--safe-area-bottom) + var(--space-8)
+    max(
+        var(--navigation-height),
+        var(--target-min) + 2 * var(--type-caption-size) *
+          var(--type-caption-line-height)
+      ) +
+      var(--safe-area-bottom) + var(--space-8)
   );
 }
 
