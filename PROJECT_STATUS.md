@@ -1,7 +1,7 @@
 # Birthday Website — Project Status
 
-**Current phase:** Day 16 — PWA Setup complete
-**Next phase:** Day 17 — Animations & Motion Polish
+**Current phase:** Day 17 — Animations & Motion Polish complete
+**Next phase:** Day 18 — Accessibility & Performance
 
 ## Completed / Locked
 
@@ -21,6 +21,7 @@
 - Day 14 — Mobile Responsiveness
 - Day 15 — Local Persistence
 - Day 16 — PWA Setup
+- Day 17 — Animations & Motion Polish
 
 ## Foundation Decisions
 
@@ -123,9 +124,19 @@
 - Production Chrome verified manifest/icons, active controlling worker and zero reported installability errors. Cached offline first-use Reveal, returning Home, direct content/reader routes, writing/fonts/public media, private-image runtime caching and uncached-image recovery passed. An ignored artificial private-path image was excluded from precache while present; cross-origin image requests were not cached. A real asset revision update activated and removed the old cache revision without forcibly reloading the running app; the temporary change/image were removed and the final build retested. Fresh uncached offline navigation correctly cannot load the app.
 - All 180 existing tests remain, with 31 new focused tests (211 total passing); one old More assertion now expects the approved Install row. All seven required commands and `pwa:check` pass. Install UI passed 320 × 568, 375 × 667, 844 × 390, 768 × 1024 and 1440 × 900 checks, keyboard/focus and simulated safe areas. Native outcomes/standalone/iOS guidance were simulated; real Safari/iOS and Android installation and production-host SPA fallback still require release verification. No software issue blocks Day 17.
 
+## Day 17 Motion Decisions
+
+- Existing motion was inventoried before production edits and checked in isolated Chrome at 375 × 667, 844 × 390 and 1440 × 900 with normal and reduced motion. Most motion already matched the locked design: navigation, For You press/reader, Open When first/repeat opening, normal Story viewer and the Reveal remain unchanged.
+- The shared More/installation Paper sheet previously appeared without a transition. Its entrance now uses the existing 220ms standard/ease-out tokens, opacity 0.6 → 1 and an 8px settle, with a matching opacity-only backdrop fade. Native focus, Close, Escape and browser Back remain immediate; no reverse-exit lifecycle was added.
+- Browser comparison resolved the reduced-motion Story viewer in favor of the detailed design's 150ms opacity-only entrance. The sheet/backdrop use the same calm 150ms fade with no translation. One shared opacity keyframe serves these surfaces; narrowly scoped duration overrides deliberately take precedence over the global reduced-motion reset.
+- Primary peer routes remain immediate; no Story chapter/scroll animation, photo-navigation crossfade, additional press effects, install-card animation or Reveal image zoom was justified. Writing, loading and failure surfaces stay quiet. Keyframes increased from 10 to 12; none were removed. No animation dependency, JavaScript motion timer/frame loop, new token system or `will-change` was added; new animated properties are only opacity/transform.
+- Reveal timing stays 500ms entry / 400ms scene / 1500ms celebration / 700ms Home, with 180ms reduced transitions and static reduced celebration accents. Completion still occurs only after the final entrance and full celebration interval. Replay and all persistence schemas are unchanged.
+- All 214 existing tests pass, along with standalone health commands, the full project check, production build and PWA check (20 unique public precache entries). No cosmetic CSS unit tests were added; existing semantic coverage was retained and actual browser checks exercised the changed surfaces. Production checks passed all six viewport/preference combinations, including mid-animation Escape/Close/Back, focus, keyboard, emulated touch swipes, peer/viewer scroll restoration, zero Story storage calls, installation-help/dismissal, first Reveal and completed replay/Back. Manual installation help was deliberately exercised through a test-browser fallback; physical Safari/iOS, Android and device verification remain pending.
+- The pre-Day-17 engineering fixes remain intact: primary-section scroll restoration, explicit For You opening-control focus and sequential multi-instance persisted-ID merging. PWA caching/privacy, content and feature scope were not changed. No issue blocks Day 18.
+
 ## Next
 
-1. Continue with Day 17 — Animations & Motion Polish from the locked documents.
+1. Continue with Day 18 — Accessibility & Performance from the locked documents.
 2. Continue later feature implementation in its scheduled phase.
 
 ## Genuine Implementation Decisions Remaining

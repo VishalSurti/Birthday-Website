@@ -210,6 +210,9 @@ body:has(.story-viewer[open]) .bottom-navigation {
 }
 @media (prefers-reduced-motion: reduce) {
   .story-viewer {
-    animation: none;
+    animation-name: surface-fade-in;
+    /* Detailed viewer guidance permits a short fade, with no spatial movement. */
+    animation-duration: 150ms !important;
+    animation-timing-function: var(--motion-easing);
   }
 }

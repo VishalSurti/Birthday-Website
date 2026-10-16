@@ -87,3 +87,13 @@ a {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Shared by focused-surface backdrops and their reduced-motion entrances. */
+@keyframes surface-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
