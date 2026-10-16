@@ -72,7 +72,6 @@ async function closeReader() {
 }
 async function openFeatured() {
   const origin = screen.getByRole('button', { name: 'Open message' });
-  origin.focus();
   fireEvent.click(origin);
   await screen.findByText('[PLACEHOLDER BODY A]');
   return origin;
@@ -84,7 +83,6 @@ describe('For You flows', () => {
     expect(store.getSnapshot().seenIds).toEqual([]);
     expect(screen.queryByText('[PLACEHOLDER BODY A]')).toBeNull();
     const origin = screen.getByRole('button', { name: 'Open message' });
-    origin.focus();
     fireEvent.click(origin);
     expect(store.getSnapshot().seenIds).toEqual([]);
     expect(screen.getByRole('status').textContent).toBe('Opening message…');
@@ -95,7 +93,7 @@ describe('For You flows', () => {
     await screen.findByText('[PLACEHOLDER BODY A]');
     await waitFor(() => expect(store.getSnapshot().seenIds).toEqual(['a']));
     await closeReader();
-    expect(document.activeElement).toBe(origin);
+    await waitFor(() => expect(document.activeElement).toBe(origin));
     fireEvent.click(screen.getByRole('button', { name: 'Read again' }));
     await screen.findByText('[PLACEHOLDER BODY A]');
     await waitFor(() => expect(store.getSnapshot().seenIds).toEqual(['a']));
@@ -117,7 +115,10 @@ describe('For You flows', () => {
       const { store } = setup();
       await openFeatured();
       await closeReader();
-      fireEvent.click(screen.getByRole('button', { name: 'Discover another' }));
+      const discovery = screen.getByRole('button', {
+        name: 'Discover another',
+      });
+      fireEvent.click(discovery);
       const dialog = screen.getByRole('dialog', { name: 'Another message' });
       expect(within(dialog).queryByText('[PLACEHOLDER BODY B]')).toBeNull();
       expect(store.getSnapshot().seenIds).toEqual(['a']);
@@ -132,6 +133,7 @@ describe('For You flows', () => {
         }),
       );
       await closeReader();
+      await waitFor(() => expect(document.activeElement).toBe(discovery));
       expect(
         screen.getByRole('button', { name: 'Read again' }).textContent,
       ).toContain('[PLACEHOLDER TITLE A]');
@@ -144,13 +146,13 @@ describe('For You flows', () => {
     const list = screen.getByRole('list');
     expect(within(list).getAllByRole('listitem')).toHaveLength(3);
     expect(store.getSnapshot().seenIds).toEqual([]);
-    fireEvent.click(
-      within(list).getByRole('button', {
-        name: '[PLACEHOLDER TITLE B] Not opened yet',
-      }),
-    );
+    const openingRow = within(list).getByRole('button', {
+      name: '[PLACEHOLDER TITLE B] Not opened yet',
+    });
+    fireEvent.click(openingRow);
     await screen.findByText('[PLACEHOLDER BODY B]');
     await closeReader();
+    await waitFor(() => expect(document.activeElement).toBe(openingRow));
     expect(
       screen
         .getByRole('button', { name: 'All messages' })

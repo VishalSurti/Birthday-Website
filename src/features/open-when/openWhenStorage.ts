@@ -15,15 +15,13 @@ export function createOpenWhenStore(
   const letters = validateLetters(content);
   const validIds = new Set(letters.map(({ id }) => id));
   const data = readVersioned(access, openWhenKey, 1);
-  let openedLetterIds = Array.isArray(data.openedLetterIds)
-    ? [
-        ...new Set(
-          data.openedLetterIds.filter(
-            (id): id is string => typeof id === 'string' && validIds.has(id),
-          ),
-        ),
-      ]
-    : [];
+  const validStoredIds = (value: unknown): string[] =>
+    Array.isArray(value)
+      ? value.filter(
+          (id): id is string => typeof id === 'string' && validIds.has(id),
+        )
+      : [];
+  let openedLetterIds = [...new Set(validStoredIds(data.openedLetterIds))];
   const listeners = new Set<() => void>();
   return {
     letters,
@@ -39,7 +37,15 @@ export function createOpenWhenStore(
     },
     markOpened: (id: string) => {
       if (!validIds.has(id) || openedLetterIds.includes(id)) return;
-      openedLetterIds = [...openedLetterIds, id];
+      openedLetterIds = [
+        ...new Set([
+          ...openedLetterIds,
+          ...validStoredIds(
+            readVersioned(access, openWhenKey, 1).openedLetterIds,
+          ),
+          id,
+        ]),
+      ];
       writeStorage(access, openWhenKey, { version: 1, openedLetterIds });
       listeners.forEach((listener) => listener());
     },

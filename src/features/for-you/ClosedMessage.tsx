@@ -13,7 +13,10 @@ export function ClosedMessage({
     <button
       type="button"
       className="for-you-card"
-      onClick={onOpen}
+      onClick={(event) => {
+        event.currentTarget.focus({ preventScroll: true });
+        onOpen();
+      }}
       aria-label={read ? 'Read again' : 'Open message'}
     >
       <span className="for-you-label">For you</span>

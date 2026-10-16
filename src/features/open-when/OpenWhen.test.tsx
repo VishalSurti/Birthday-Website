@@ -94,6 +94,7 @@ describe('Open When flows', () => {
       ),
     ).toHaveLength(2);
     expect(screen.getAllByText('Unopened')).toHaveLength(2);
+    vi.spyOn(window, 'scrollY', 'get').mockReturnValue(380);
     const origin = card();
     origin.focus();
     fireEvent.click(origin);
@@ -113,6 +114,10 @@ describe('Open When flows', () => {
     expect(screen.getByRole('navigation', { name: 'Primary' })).toBeTruthy();
     expect(card().textContent).toContain('Opened before');
     expect(document.activeElement).toBe(card());
+    expect(window.scrollTo).toHaveBeenLastCalledWith({
+      top: 380,
+      behavior: 'instant',
+    });
     fireEvent.click(card());
     await advance(219);
     expect(router.state.location.pathname).toBe('/open-when');

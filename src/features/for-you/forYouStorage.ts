@@ -22,15 +22,13 @@ export function createForYouStore(
   const validIds = new Set(messages.map(({ id }) => id));
   const persistent = readVersioned(local, persistentKey, 1);
   const sessionState = readVersioned(session, sessionKey, 1);
-  const seenIds = Array.isArray(persistent.seenIds)
-    ? [
-        ...new Set(
-          persistent.seenIds.filter(
-            (id): id is string => typeof id === 'string' && validIds.has(id),
-          ),
-        ),
-      ]
-    : [];
+  const validStoredIds = (value: unknown): string[] =>
+    Array.isArray(value)
+      ? value.filter(
+          (id): id is string => typeof id === 'string' && validIds.has(id),
+        )
+      : [];
+  const seenIds = [...new Set(validStoredIds(persistent.seenIds))];
   const previousId =
     typeof persistent.lastFeaturedId === 'string' &&
     validIds.has(persistent.lastFeaturedId)
@@ -43,12 +41,22 @@ export function createForYouStore(
       : selectMessage(messages, seenIds, previousId, random)?.id;
   let snapshot = { featuredId, seenIds };
   const listeners = new Set<() => void>();
-  const save = () =>
+  const save = () => {
+    snapshot = {
+      ...snapshot,
+      seenIds: [
+        ...new Set([
+          ...snapshot.seenIds,
+          ...validStoredIds(readVersioned(local, persistentKey, 1).seenIds),
+        ]),
+      ],
+    };
     writeStorage(local, persistentKey, {
       version: 1,
       seenIds: snapshot.seenIds,
       lastFeaturedId: featuredId,
     });
+  };
   if (featuredId) {
     writeStorage(session, sessionKey, { version: 1, featuredId });
     save();

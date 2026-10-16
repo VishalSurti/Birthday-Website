@@ -122,3 +122,44 @@ describe('application shell and primary navigation', () => {
     ).toBeTruthy();
   });
 });
+
+it('starts new sections at the top and restores Story without same-path overlay resets', () => {
+  let scrollY = 0;
+  vi.spyOn(window, 'scrollY', 'get').mockImplementation(() => scrollY);
+  vi.mocked(window.scrollTo).mockImplementation((options) => {
+    if (typeof options === 'object')
+      scrollY = (options as ScrollToOptions).top ?? 0;
+  });
+  const app = renderAt('/our-story');
+  const nav = () => within(screen.getByRole('navigation', { name: 'Primary' }));
+  scrollY = 1800;
+  fireEvent.scroll(window);
+  fireEvent.click(nav().getByRole('link', { name: 'Open When' }));
+  expect(scrollY).toBe(0);
+  scrollY = 120;
+  fireEvent.scroll(window);
+  fireEvent.click(nav().getByRole('link', { name: 'Our Story' }));
+  expect(scrollY).toBe(1800);
+  vi.mocked(window.scrollTo).mockClear();
+  // More creates same-path history, which must not trigger section restoration.
+  Object.defineProperties(HTMLDialogElement.prototype, {
+    showModal: {
+      configurable: true,
+      value() {
+        this.setAttribute('open', '');
+      },
+    },
+    close: {
+      configurable: true,
+      value() {
+        this.removeAttribute('open');
+      },
+    },
+  });
+  fireEvent.click(screen.getByRole('button', { name: 'More' }));
+  expect(window.scrollTo).not.toHaveBeenCalled();
+  app.unmount();
+  scrollY = 0; // Fresh document.
+  renderAt('/our-story');
+  expect(scrollY).toBe(0); // A fresh shell does not restore a previous visit.
+});

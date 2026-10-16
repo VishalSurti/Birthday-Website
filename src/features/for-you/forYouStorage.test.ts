@@ -206,3 +206,45 @@ describe('For You storage', () => {
     ).toBeUndefined();
   });
 });
+
+it('merges sequential instances and initialization writes without retaining stale IDs', () => {
+  const local = memory();
+  const first = createForYouStore(
+    content,
+    () => local,
+    () => memory(),
+    () => 0,
+  );
+  const second = createForYouStore(
+    content,
+    () => local,
+    () => memory(),
+    () => 0,
+  );
+  first.markSeen('a');
+  second.markSeen('b');
+  expect(new Set(JSON.parse(local.getItem(persistentKey)!).seenIds)).toEqual(
+    new Set(['a', 'b']),
+  );
+  const latest = JSON.parse(local.getItem(persistentKey)!);
+  local.setItem(
+    persistentKey,
+    JSON.stringify({
+      ...latest,
+      seenIds: [...latest.seenIds, 'removed', 7, 'a'],
+    }),
+  );
+  first.markSeen('c');
+  const reloaded = createForYouStore(
+    content,
+    () => local,
+    () => memory(),
+    () => 0,
+  );
+  expect(new Set(reloaded.getSnapshot().seenIds)).toEqual(
+    new Set(['a', 'b', 'c']),
+  );
+  expect(Object.keys(JSON.parse(local.getItem(persistentKey)!)).sort()).toEqual(
+    ['lastFeaturedId', 'seenIds', 'version'],
+  );
+});

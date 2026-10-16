@@ -130,3 +130,20 @@ describe('Open When storage', () => {
     },
   );
 });
+
+it('merges sequential instances while rejecting stale and malformed persisted IDs', () => {
+  const storage = memory();
+  const first = createOpenWhenStore(letters, () => storage);
+  const second = createOpenWhenStore(letters, () => storage);
+  first.markOpened('a');
+  storage.setItem(
+    openWhenKey,
+    JSON.stringify({ version: 1, openedLetterIds: ['a', 'a', 'removed', 7] }),
+  );
+  second.markOpened('b');
+  expect(JSON.parse(storage.getItem()!)).toEqual({
+    version: 1,
+    openedLetterIds: ['a', 'b'],
+  });
+  expect(second.getSnapshot()).toEqual(['a', 'b']);
+});

@@ -91,7 +91,8 @@ export function ForYouExperience({ store }: { store: ForYouStore }) {
                 <button
                   type="button"
                   className="for-you-secondary"
-                  onClick={() => {
+                  onClick={(event) => {
+                    event.currentTarget.focus({ preventScroll: true });
                     const next = store.discover(lastDisplayedId);
                     if (next) open(next.id, true);
                   }}
@@ -108,7 +109,10 @@ export function ForYouExperience({ store }: { store: ForYouStore }) {
                     <button
                       type="button"
                       className="for-you-row"
-                      onClick={() => open(item.id)}
+                      onClick={(event) => {
+                        event.currentTarget.focus({ preventScroll: true });
+                        open(item.id);
+                      }}
                     >
                       <span className="for-you-row__text">
                         <span className="for-you-row__title">
