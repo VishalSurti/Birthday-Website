@@ -125,10 +125,12 @@ describe('For You flows', () => {
         within(dialog).getByRole('button', { name: 'Open message' }),
       );
       await screen.findByText('[PLACEHOLDER BODY B]');
-      expect(store.getSnapshot()).toEqual({
-        featuredId: 'a',
-        seenIds: ['a', 'b'],
-      });
+      await waitFor(() =>
+        expect(store.getSnapshot()).toEqual({
+          featuredId: 'a',
+          seenIds: ['a', 'b'],
+        }),
+      );
       await closeReader();
       expect(
         screen.getByRole('button', { name: 'Read again' }).textContent,

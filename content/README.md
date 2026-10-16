@@ -7,3 +7,5 @@ This repository is public. Real birthday writing belongs only in ignored `/conte
 `npm run privacy:check` inspects Git-tracked paths, including staged files. It supplements `.gitignore`; it cannot identify personal information placed in an otherwise public filename. Always review staged content.
 
 Our Story uses `sample/our-story.json` and artificial local SVGs in `/public/app-assets/story-placeholders/`. The 12 memories and all writing/alt text are explicit development fixtures, not invented relationship content. Replace these references with authentic private writing and photos before release; meaningful photographs need actual contextual alt text. Story has no persisted read/view/completion state.
+
+Birthday Reveal uses four scenes in `sample/birthday-reveal.json`, ending in one final scene. All personal copy is placeholder text; only the generic Happy Birthday heading is final interface language. Local artificial SVG references can later become `/private-assets/...` references. Completion belongs to runtime state, never authored content.

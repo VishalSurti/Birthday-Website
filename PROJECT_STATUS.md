@@ -1,7 +1,7 @@
 # Birthday Website — Project Status
 
-**Current phase:** Day 11 — Our Story complete
-**Next phase:** Day 12 — Birthday Reveal
+**Current phase:** Day 12 — Birthday Reveal complete
+**Next phase:** Day 13 — Media Support
 
 ## Completed / Locked
 
@@ -16,6 +16,7 @@
 - Day 9 — For You
 - Day 10 — Open When
 - Day 11 — Our Story
+- Day 12 — Birthday Reveal
 
 ## Foundation Decisions
 
@@ -67,14 +68,25 @@
 - 84 tests, all required checks and production build pass. Chrome verified all eight reference viewports, real emulated touch swipes, both photo boundaries, selected-image entry, focus/scroll restoration, reduced motion, simulated safe areas and failed images. Instrumented Story flows made zero browser-storage calls.
 - Browser regressions passed for Home, For You reader/seen persistence, Open When reader/opened persistence, navigation and unknown-route recovery. For You and Open When runtime code/tests were unchanged. Safari/iOS and physical-device QA remain unverified.
 
+## Day 12 Birthday Reveal Decisions
+
+- One entry gate wraps existing routes. Incomplete root, internal and unknown routes show the deliberate opening without normal content/navigation; first completion always arrives at Home. Completed explicit internal routes remain valid.
+- Four validated public placeholder scenes and two artificial local SVGs use the Canvas opening and full-screen Deep Ink Reveal. Meaningful progression is deliberate, keyboard usable and protected against repeated activation during transitions.
+- `birthday.reveal.v1` stores only `{ version: 1, birthdayRevealCompleted: true }`. Completion is written after the final entrance and its single 1500ms celebration finish, never when the final scene merely appears. Reduced motion preserves that finish point with static accents and short fades. No scene/replay progress is stored; interruption restarts through the opening.
+- Storage failure keeps current-runtime completion usable; a fresh launch safely defaults to incomplete. Content validation requires a coherent sequence with one final scene at the end; failed optional images preserve writing and progression.
+- Shared PageHeader More opens a native Paper bottom sheet containing only Replay Birthday Surprise. Escape, outside click and browser Back dismiss it; focus returns to More. Installation remains deferred.
+- Replay requires an in-memory authorization from More; direct entry/reload of `/birthday-reveal` cannot resume replay. It starts at Scene 1 without the opening, offers Exit to the existing originating top-level history entry, never clears completion, and finishes at Home. Consumed replay history cannot restart the sequence.
+- Home remains its placeholder. For You, Open When and Our Story runtime implementations are unchanged; Our Story still has no persistent read/view/completion state. No PWA, audio, dependencies or Day 13 work were added.
+- 125 tests, all required checks and the production build pass. Chrome verified all eight reference viewports, first-use/deep-link gating, final timing, interruption, replay/history, keyboard/focus, reduced motion, simulated safe areas, image failure and prior-feature regressions. Safari/iOS and physical-device QA remain unverified.
+
 ## Next
 
-1. Implement Day 12 — Birthday Reveal from the locked documents.
+1. Implement Day 13 — Media Support from the locked documents.
 2. Continue later feature implementation in its scheduled phase.
 
 ## Genuine Implementation Decisions Remaining
 
-- broader application persistence for later features; For You and Open When storage are implemented; Our Story intentionally has no persistent memory-view state; Reveal and installation state remain deferred
+- installation dismissal persistence remains deferred; For You, Open When and Reveal completion storage are implemented; Our Story intentionally has no persistent memory-view state
 - PWA/service-worker tooling and cache strategy
 - final PWA name and icon artwork
 - final Open Graph preview artwork

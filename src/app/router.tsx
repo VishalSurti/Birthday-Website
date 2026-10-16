@@ -1,3 +1,5 @@
+import { RevealGate } from '../features/birthday-reveal/RevealGate';
+import type { RevealStore } from '../features/birthday-reveal/revealStorage';
 import { Route, Routes } from 'react-router';
 import { HomePage } from '../pages/HomePage';
 import { ForYouPage } from '../pages/ForYouPage';
@@ -9,21 +11,23 @@ import { AppShell } from './AppShell';
 import { RootLayout } from './RootLayout';
 import { routes } from './routes';
 
-export function AppRoutes() {
+export function AppRoutes({ revealStore }: { revealStore?: RevealStore } = {}) {
   return (
-    <Routes>
-      <Route element={<AppShell />}>
-        <Route path={routes.home} element={<HomePage />} />
-        <Route path={routes.forYou} element={<ForYouPage />} />
-        <Route path={routes.openWhen} element={<OpenWhenPage />} />
-        <Route path={routes.ourStory} element={<OurStoryPage />} />
-      </Route>
-      <Route element={<RootLayout className="letter-layout" />}>
-        <Route path={routes.letter} element={<LetterPage />} />
-      </Route>
-      <Route element={<RootLayout />}>
-        <Route path="*" element={<NotFoundPage />} />
-      </Route>
-    </Routes>
+    <RevealGate store={revealStore}>
+      <Routes>
+        <Route element={<AppShell />}>
+          <Route path={routes.home} element={<HomePage />} />
+          <Route path={routes.forYou} element={<ForYouPage />} />
+          <Route path={routes.openWhen} element={<OpenWhenPage />} />
+          <Route path={routes.ourStory} element={<OurStoryPage />} />
+        </Route>
+        <Route element={<RootLayout className="letter-layout" />}>
+          <Route path={routes.letter} element={<LetterPage />} />
+        </Route>
+        <Route element={<RootLayout />}>
+          <Route path="*" element={<NotFoundPage />} />
+        </Route>
+      </Routes>
+    </RevealGate>
   );
 }

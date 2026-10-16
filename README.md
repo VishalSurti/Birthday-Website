@@ -17,7 +17,7 @@ No environment variables are needed. Run `npm run check` for typecheck, lint, te
 
 ## Foundation boundaries
 
-For You at `/for-you` provides Featured, All Messages and a focused reader using public development fixtures. Open When at `/open-when` provides a letter collection; `/open-when/:letterId` is its dedicated reader. Our Story at `/our-story` is a continuous narrative with a same-memory photo viewer. Home at `/` remains a placeholder. Unknown paths offer recovery to Home. Browser-history routing requires a future static host to fall back to `index.html` for application routes; Vite handles this locally. The shared Day 8 shell provides four-destination bottom navigation on top-level routes. Letter readers and unknown routes use focused layouts without primary navigation. The For You reader uses same-route history state and a native modal dialog; Close, Escape and Back return to its browsing state. There is no public Reveal route, first-use state or PWA implementation yet.
+For You at `/for-you` provides Featured, All Messages and a focused reader using public development fixtures. Open When at `/open-when` provides a letter collection; `/open-when/:letterId` is its dedicated reader. Our Story at `/our-story` is a continuous narrative with a same-memory photo viewer. Home at `/` remains a placeholder. Unknown paths offer recovery to Home. Browser-history routing requires a future static host to fall back to `index.html` for application routes; Vite handles this locally. The shared Day 8 shell provides four-destination bottom navigation on top-level routes. Letter readers and unknown routes use focused layouts without primary navigation. The For You reader uses same-route history state and a native modal dialog; Close, Escape and Back return to its browsing state. The Day 12 entry gate resolves Reveal completion before exposing any normal route. There is no PWA implementation yet.
 
 CSS foundations live in `src/styles/`; route declarations in `src/app/`. Newsreader and Geist use locally bundled normal Latin variable fonts with `font-display: swap` and approved fallbacks. Extend language subsets only when real content requires them.
 
@@ -44,3 +44,13 @@ The collection uses single-column cards at every width, constrained by the exist
 The native full-screen dialog receives only its originating memory. Buttons, keyboard arrows and thresholded touch swipes stop at that memory's first/last photo; a single image has no navigation controls. One same-route history entry supports Close/Escape/browser Back, with image focus and Story position restored. Photo changes use component state, without adding history entries.
 
 Our Story adds no persistent read/view/completion state and never accesses localStorage or sessionStorage. Viewer and return context exist only in transient component/DOM/history state. There are no individual memory or gallery routes.
+
+## Birthday Reveal and entry
+
+Incomplete visits, including explicit internal URLs, show the deliberate opening before the four-scene Reveal. Successful first completion always lands at the existing Home placeholder. Returning root visits open Home; completed explicit internal routes remain usable.
+
+`birthday.reveal.v1` stores only version 1 and `birthdayRevealCompleted`. The final scene entrance completes before its single 1500ms celebration; only the celebration's successful finish records completion and enables Continue. Timers are cancelled on unmount and do not depend on CSS animation events. Reduced motion uses the same completion interval with calm accents. There is no persisted scene or replay progress; failed writes preserve completion in memory for the current runtime.
+
+More on the four top-level pages exposes only Replay Birthday Surprise. The internal `/birthday-reveal` route requires an ephemeral authorization created by More; direct typing/reload cannot resume replay. Exit returns to the originating top-level history entry, finish goes to Home, and replay never clears completion. Installation actions remain deferred.
+
+`content/sample/birthday-reveal.json` and two artificial SVGs in `public/app-assets/reveal-placeholders/` are development-only. Replace opening/Reveal copy and asset references with authentic content from ignored private paths before release. Invalid sequences cannot complete; optional image failure preserves text and deliberate progression.

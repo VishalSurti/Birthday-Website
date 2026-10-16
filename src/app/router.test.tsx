@@ -1,3 +1,4 @@
+import { createRevealStore } from '../features/birthday-reveal/revealStorage';
 import { fireEvent, render, screen, within } from '@testing-library/react';
 import { BrowserRouter } from 'react-router';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
@@ -12,9 +13,13 @@ const destinations = [
 
 function renderAt(path: string) {
   window.history.replaceState(null, '', path);
+  const revealStore = createRevealStore(() => ({
+    getItem: () => '{"version":1,"birthdayRevealCompleted":true}',
+    setItem: () => {},
+  }));
   return render(
     <BrowserRouter>
-      <AppRoutes />
+      <AppRoutes revealStore={revealStore} />
     </BrowserRouter>,
   );
 }

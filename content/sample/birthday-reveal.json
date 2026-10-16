@@ -1,0 +1,34 @@
+[
+  {
+    "id": "reveal-scene-01",
+    "type": "text",
+    "headline": "[REVEAL LINE 01]",
+    "body": "[Placeholder opening thought]"
+  },
+  {
+    "id": "reveal-scene-02",
+    "type": "text-photo",
+    "headline": "[REVEAL LINE 02]",
+    "body": "[Placeholder photo context]",
+    "image": {
+      "src": "/app-assets/reveal-placeholders/composition-02.svg",
+      "alt": "Development placeholder image for Birthday Reveal layout testing."
+    }
+  },
+  {
+    "id": "reveal-scene-03",
+    "type": "text",
+    "headline": "[REVEAL LINE 03]",
+    "body": "[Placeholder supporting thought]"
+  },
+  {
+    "id": "reveal-scene-04",
+    "type": "final",
+    "headline": "Happy Birthday",
+    "body": "[Placeholder final birthday message]",
+    "image": {
+      "src": "/app-assets/reveal-placeholders/composition-02.svg",
+      "alt": "Development placeholder image for Birthday Reveal layout testing."
+    }
+  }
+]
