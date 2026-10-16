@@ -45,4 +45,28 @@ describe('Reveal completion persistence', () => {
     expect(store.isCompleted()).toBe(true);
     expect(createRevealStore(access).isCompleted()).toBe(false);
   });
+  it.each(['read', 'write'])(
+    'keeps completion in memory after a %s failure, with safe fresh defaults',
+    (failure) => {
+      const storage = {
+        getItem: () => {
+          if (failure === 'read') throw new Error('blocked read');
+          return null;
+        },
+        setItem: vi.fn(() => {
+          if (failure === 'write') throw new Error('quota');
+        }),
+      };
+      const store = createRevealStore(() => storage);
+      expect(store.isCompleted()).toBe(false);
+      store.finish();
+      store.finish();
+      expect(store.isCompleted()).toBe(true);
+      expect(storage.setItem).toHaveBeenCalledExactlyOnceWith(
+        revealKey,
+        '{"version":1,"birthdayRevealCompleted":true}',
+      );
+      expect(createRevealStore(() => storage).isCompleted()).toBe(false);
+    },
+  );
 });

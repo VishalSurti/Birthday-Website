@@ -1,7 +1,7 @@
 # Birthday Website — Project Status
 
-**Current phase:** Day 14 — Mobile Responsiveness complete
-**Next phase:** Day 15 — Local Persistence
+**Current phase:** Day 15 — Local Persistence complete
+**Next phase:** Day 16 — PWA Setup
 
 ## Completed / Locked
 
@@ -19,6 +19,7 @@
 - Day 12 — Birthday Reveal
 - Day 13 — Media Support
 - Day 14 — Mobile Responsiveness
+- Day 15 — Local Persistence
 
 ## Foundation Decisions
 
@@ -100,14 +101,24 @@
 - Final Chrome 155 checks passed 320 × 568, 360 × 800, 375 × 667, 390 × 844, 412 × 915, 430 × 932, 844 × 390, 768 × 1024 and 1440 × 900. Checks covered horizontal overflow, controls, navigation clearance, media states, Story compositions, dialogs, opening/Reveal, simulated safe areas and enlarged text. Keyboard/history, emulated touch, reduced motion and media-failure regressions passed; Story still made zero persistent-storage calls.
 - All seven required project commands passed, including all 153 tests and the production build. Safari/iOS, Android browser and physical-device testing remain unverified.
 
+## Day 15 Persistence Decisions
+
+- One small `src/lib/persistence.ts` boundary replaces duplicated safe browser access, JSON parsing, version checks and write handling. Dependency-injected feature stores retain their domain validation, runtime snapshots, actions and subscriptions; no global state store or migration layer was added.
+- All four existing keys and version-1 payloads remain unchanged: local `birthday.for-you.v1` (`version`, `seenIds`, `lastFeaturedId`), local `birthday.open-when.v1` (`version`, `openedLetterIds`), local `birthday.reveal.v1` (`version`, `birthdayRevealCompleted`), and session-only `birthday.for-you.session.v1` (`version`, `featuredId`). Existing valid records work without migration.
+- For You still saves initial session identity and previous-featured non-repeat support without marking seen; only actual reader reveal marks seen. Active featured identity remains stable through navigation/reload and session-only. Known-ID validation and deduplication remain feature-owned; stale IDs are ignored and excluded from subsequent writes.
+- Open When still marks opened only after valid reader arrival. Reveal still completes only after the final entrance and celebration interval; interruption restarts through deliberate opening, and replay remains idempotent. Story still has no persistent state; navigation, viewer, replay and scroll context remain transient.
+- Missing, malformed, non-object or incompatible records use safe defaults. Denied storage access, failed reads and failed writes remain silent; successful interactions retain in-memory state, while fresh instances may reset. Clearing storage between instances safely restores first-use defaults, and malformed records remain isolated by feature.
+- Install-dismissal persistence is intentionally deferred to Day 16 because no installation experience consumes it yet. No unused field, PWA behavior, dependency, backend, cloud sync, content snapshot or tracking state was added.
+- All 153 existing tests remain, with 27 new boundary/resilience/compatibility tests: 180 tests pass. All seven required project commands and the production build pass. Isolated Chrome verified actual payload fields, normal/cleared state, session stability/non-repeat, reader timing, Reveal interruption/completion, injected access/write denial, zero Story storage calls and layout/flow regressions at 375 × 667 and 1440 × 900. Safari/iOS, Android browser and physical-device verification remain outstanding.
+
 ## Next
 
-1. Implement Day 15 — Local Persistence from the locked documents.
+1. Implement Day 16 — PWA Setup from the locked documents.
 2. Continue later feature implementation in its scheduled phase.
 
 ## Genuine Implementation Decisions Remaining
 
-- installation dismissal persistence remains deferred; For You, Open When and Reveal completion storage are implemented; Our Story intentionally has no persistent memory-view state
+- installation dismissal persistence remains deferred to Day 16; existing For You, Open When and Reveal persistence is hardened; Our Story intentionally has no persistent memory-view state
 - PWA/service-worker tooling and cache strategy
 - final PWA name and icon artwork
 - final Open Graph preview artwork

@@ -1,36 +1,29 @@
 import { validateLetters } from './openWhenContent';
+import {
+  localStorageAccess,
+  readVersioned,
+  writeStorage,
+  type StorageAccess,
+} from '../../lib/persistence';
 
 export const openWhenKey = 'birthday.open-when.v1';
-type StorageAccess = () => Pick<Storage, 'getItem' | 'setItem'>;
 
 export function createOpenWhenStore(
   content: unknown,
-  access: StorageAccess = () => window.localStorage,
+  access: StorageAccess = localStorageAccess,
 ) {
   const letters = validateLetters(content);
   const validIds = new Set(letters.map(({ id }) => id));
-  let openedLetterIds: string[] = [];
-  try {
-    const data: unknown = JSON.parse(access().getItem(openWhenKey) ?? 'null');
-    if (
-      data &&
-      typeof data === 'object' &&
-      'version' in data &&
-      data.version === 1 &&
-      'openedLetterIds' in data &&
-      Array.isArray(data.openedLetterIds)
-    ) {
-      openedLetterIds = [
+  const data = readVersioned(access, openWhenKey, 1);
+  let openedLetterIds = Array.isArray(data.openedLetterIds)
+    ? [
         ...new Set(
           data.openedLetterIds.filter(
             (id): id is string => typeof id === 'string' && validIds.has(id),
           ),
         ),
-      ];
-    }
-  } catch {
-    /* Missing or unavailable storage uses the same safe defaults. */
-  }
+      ]
+    : [];
   const listeners = new Set<() => void>();
   return {
     letters,
@@ -47,14 +40,7 @@ export function createOpenWhenStore(
     markOpened: (id: string) => {
       if (!validIds.has(id) || openedLetterIds.includes(id)) return;
       openedLetterIds = [...openedLetterIds, id];
-      try {
-        access().setItem(
-          openWhenKey,
-          JSON.stringify({ version: 1, openedLetterIds }),
-        );
-      } catch {
-        /* Reading and in-memory state remain available. */
-      }
+      writeStorage(access, openWhenKey, { version: 1, openedLetterIds });
       listeners.forEach((listener) => listener());
     },
   };

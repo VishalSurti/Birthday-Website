@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { createForYouStore, persistentKey, sessionKey } from './forYouStorage';
 const content = ['a', 'b', 'c'].map((id) => ({ id, body: '[PLACEHOLDER]' }));
 function memory() {
@@ -76,6 +76,7 @@ describe('For You storage', () => {
     'null',
     '[]',
     JSON.stringify({ version: 99, seenIds: ['a'] }),
+    JSON.stringify({ version: 1, seenIds: 42, featuredId: 42 }),
   ])('uses defaults for malformed/incompatible storage: %s', (value) => {
     const local = memory(),
       session = memory();
@@ -143,6 +144,43 @@ describe('For You storage', () => {
     expect(store.discover('b')?.id).toBe('c');
     expect(store.getSnapshot()).toEqual({ featuredId: 'a', seenIds: ['a'] });
   });
+  it.each(['read', 'write'])(
+    'keeps seen state and notifications usable after a %s failure',
+    (failure) => {
+      const session = memory();
+      const local = {
+        getItem: () => {
+          if (failure === 'read') throw new Error('blocked read');
+          return null;
+        },
+        setItem: vi.fn(() => {
+          if (failure === 'write') throw new Error('quota');
+        }),
+      };
+      const store = createForYouStore(
+        content,
+        () => local,
+        () => session,
+        () => 0,
+      );
+      const listener = vi.fn();
+      store.subscribe(listener);
+      store.markSeen('a');
+      store.markSeen('a');
+      expect(store.getSnapshot()).toEqual({ featuredId: 'a', seenIds: ['a'] });
+      expect(listener).toHaveBeenCalledTimes(1);
+      // Initial selection must still save previous-featured identity, without marking seen.
+      expect(local.setItem).toHaveBeenCalledTimes(2);
+      expect(store.discover('a')?.id).toBe('b');
+      expect(
+        createForYouStore(
+          content,
+          () => local,
+          () => session,
+        ).getSnapshot(),
+      ).toEqual({ featuredId: 'a', seenIds: [] });
+    },
+  );
   it('handles all-seen, one-message and empty discovery', () => {
     const store = createForYouStore(
       content,

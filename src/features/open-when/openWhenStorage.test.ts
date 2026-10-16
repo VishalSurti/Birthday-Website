@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { validateLetters } from './openWhenContent';
 import { createOpenWhenStore, openWhenKey } from './openWhenStorage';
 
@@ -100,4 +100,33 @@ describe('Open When storage', () => {
       expect(store.getSnapshot()).toEqual(['b']);
     }
   });
+  it.each(['read', 'write'])(
+    'keeps opened state and notifications usable after a %s failure',
+    (failure) => {
+      const storage = {
+        getItem: () => {
+          if (failure === 'read') throw new Error('blocked read');
+          return null;
+        },
+        setItem: vi.fn(() => {
+          if (failure === 'write') throw new Error('quota');
+        }),
+      };
+      const store = createOpenWhenStore(letters, () => storage);
+      const listener = vi.fn();
+      store.subscribe(listener);
+      store.markOpened('b');
+      store.markOpened('b');
+      store.markOpened('removed');
+      expect(store.getSnapshot()).toEqual(['b']);
+      expect(listener).toHaveBeenCalledTimes(1);
+      expect(storage.setItem).toHaveBeenCalledExactlyOnceWith(
+        openWhenKey,
+        '{"version":1,"openedLetterIds":["b"]}',
+      );
+      expect(createOpenWhenStore(letters, () => storage).getSnapshot()).toEqual(
+        [],
+      );
+    },
+  );
 });
