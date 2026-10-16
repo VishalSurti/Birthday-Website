@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { StoryImage } from './StoryImage';
+import { MediaImage } from '../../components/media/MediaImage';
 import { photoIndex, swipeDirection, type StoryMemory } from './storyContent';
 
 export function StoryPhotoViewer({
@@ -101,7 +101,13 @@ export function StoryPhotoViewer({
             );
           }}
         >
-          <StoryImage key={image.src} image={image} eager />
+          <MediaImage
+            key={image.src}
+            image={image}
+            className="story-image-media"
+            loading="eager"
+            fit="contain"
+          />
         </div>
         {multiple && (
           <div className="story-viewer__navigation">

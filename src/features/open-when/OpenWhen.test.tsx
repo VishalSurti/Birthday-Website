@@ -187,3 +187,42 @@ describe('Open When flows', () => {
     expect(store.getSnapshot()).toEqual(['a']);
   });
 });
+
+it('renders optional photography without changing opening or reader escape; failure keeps writing', () => {
+  const { store } = setup(
+    [
+      {
+        ...content[0],
+        image: {
+          src: '/app-assets/media-placeholder.svg',
+          alt: '[Development image]',
+          width: 800,
+          height: 600,
+        },
+      },
+    ],
+    '/open-when/a',
+  );
+  const img = screen.getByRole('img', { name: '[Development image]' });
+  expect(img.getAttribute('loading')).toBe('lazy');
+  expect(store.getSnapshot()).toEqual(['a']);
+  fireEvent.error(img);
+  expect(screen.getByRole('img', { name: 'Image unavailable' })).toBeTruthy();
+  expect(screen.getByText('[PLACEHOLDER BODY A]')).toBeTruthy();
+  expect(screen.getByRole('link', { name: 'Back to Open When' })).toBeTruthy();
+  expect(screen.queryByRole('dialog')).toBeNull();
+  expect(screen.queryByRole('button', { name: /Next|Previous/ })).toBeNull();
+});
+it('ignores an invalid optional image without discarding a letter', () => {
+  setup(
+    [
+      {
+        ...content[0],
+        image: { src: '//external.example/image', alt: 'Invalid' },
+      },
+    ],
+    '/open-when/a',
+  );
+  expect(screen.queryByRole('img')).toBeNull();
+  expect(screen.getByText('[PLACEHOLDER BODY A]')).toBeTruthy();
+});

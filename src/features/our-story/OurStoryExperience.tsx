@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router';
 import { PageHeader } from '../../components/layout/PageHeader';
 import { routes } from '../../app/routes';
-import { StoryImage } from './StoryImage';
+import { MediaImage } from '../../components/media/MediaImage';
 import { StoryPhotoViewer } from './StoryPhotoViewer';
 import { validateStory } from './storyContent';
 import './our-story.css';
@@ -77,10 +77,11 @@ export function OurStoryExperience({ content }: { content: unknown }) {
                           });
                         }}
                       >
-                        <StoryImage
+                        <MediaImage
                           key={image.src}
                           image={image}
-                          eager={chapter === 0}
+                          className="story-image-media"
+                          loading={chapter === 0 ? 'eager' : 'lazy'}
                         />
                       </button>
                     ))}

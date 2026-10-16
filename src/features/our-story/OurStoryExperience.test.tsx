@@ -271,3 +271,19 @@ describe('Story viewer', () => {
     expect(write).not.toHaveBeenCalled();
   });
 });
+
+it('loads lower Story media lazily and only the selected viewer image eagerly with contained fit', () => {
+  setup();
+  const images = screen.getAllByRole('img');
+  expect(images[0]!.getAttribute('loading')).toBe('eager');
+  expect(
+    images.slice(1).every((image) => image.getAttribute('loading') === 'lazy'),
+  ).toBe(true);
+  expect(
+    images.every((image) => image.getAttribute('fetchpriority') === null),
+  ).toBe(true);
+  open();
+  const selected = viewerImage() as HTMLImageElement;
+  expect(selected.getAttribute('loading')).toBe('eager');
+  expect(selected.style.objectFit).toBe('contain');
+});

@@ -1,10 +1,13 @@
-export type RevealImage = { src: string; alt: string };
+import {
+  validateImageReference,
+  type ImageReference,
+} from '../../components/media/imageReference';
 export type RevealScene = {
   id: string;
   type: 'text' | 'photo' | 'text-photo' | 'final';
   headline: string;
   body?: string;
-  image?: RevealImage;
+  image?: ImageReference;
 };
 const text = (value: unknown): value is string =>
   typeof value === 'string' && !!value.trim();
@@ -24,23 +27,12 @@ export function validateReveal(input: unknown): RevealScene[] {
     )
       return [];
     ids.add(value.id);
-    let image: RevealImage | undefined;
-    if (value.image && typeof value.image === 'object') {
-      const ref = value.image as Record<string, unknown>;
-      if (
-        text(ref.src) &&
-        ref.src.startsWith('/') &&
-        !ref.src.startsWith('//') &&
-        typeof ref.alt === 'string'
-      )
-        image = { src: ref.src, alt: ref.alt };
-    }
     scenes.push({
       id: value.id,
       type: value.type as RevealScene['type'],
       headline: value.headline,
       body: text(value.body) ? value.body : undefined,
-      image,
+      image: validateImageReference(value.image),
     });
   }
   return scenes.at(-1)?.type === 'final' &&

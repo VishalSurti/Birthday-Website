@@ -1,0 +1,32 @@
+.media-image {
+  position: relative;
+  display: block;
+  inline-size: 100%;
+  max-inline-size: 100%;
+  min-inline-size: 0;
+  overflow: hidden;
+}
+.media-image[data-state='loading'],
+.media-image[data-state='error'] {
+  background: var(--color-surface-soft);
+}
+.media-image img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  inline-size: 100%;
+  max-inline-size: 100%;
+  block-size: 100%;
+  object-position: center;
+}
+.media-image__fallback {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: var(--space-4);
+  color: var(--color-text-secondary);
+  font: var(--type-ui-body-size) / var(--type-ui-body-line-height)
+    var(--font-ui);
+  text-align: center;
+}

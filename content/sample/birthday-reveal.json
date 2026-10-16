@@ -12,7 +12,9 @@
     "body": "[Placeholder photo context]",
     "image": {
       "src": "/app-assets/reveal-placeholders/composition-02.svg",
-      "alt": "Development placeholder image for Birthday Reveal layout testing."
+      "alt": "Development placeholder image for Birthday Reveal layout testing.",
+      "width": 400,
+      "height": 500
     }
   },
   {
@@ -28,7 +30,9 @@
     "body": "[Placeholder final birthday message]",
     "image": {
       "src": "/app-assets/reveal-placeholders/composition-02.svg",
-      "alt": "Development placeholder image for Birthday Reveal layout testing."
+      "alt": "Development placeholder image for Birthday Reveal layout testing.",
+      "width": 400,
+      "height": 500
     }
   }
 ]

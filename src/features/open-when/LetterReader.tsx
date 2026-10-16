@@ -1,3 +1,4 @@
+import { MediaImage } from '../../components/media/MediaImage';
 import { useEffect, useLayoutEffect, useRef } from 'react';
 import { Link, useLocation, useNavigate, useParams } from 'react-router';
 import { routes } from '../../app/routes';
@@ -62,6 +63,13 @@ export function LetterReader({ store }: { store: OpenWhenStore }) {
               <p key={index}>{paragraph}</p>
             ))}
           </div>
+          {letter.image && (
+            <MediaImage
+              image={letter.image}
+              className="letter-photo"
+              fit="contain"
+            />
+          )}
         </article>
       ) : (
         <section aria-label="Letter unavailable">

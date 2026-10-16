@@ -1,16 +1,14 @@
-export type StoryImage = {
-  src: string;
-  alt: string;
-  width?: number;
-  height?: number;
-};
+import {
+  validateImageReference,
+  type ImageReference,
+} from '../../components/media/imageReference';
 export type StoryMemory = {
   id: string;
   title: string;
   body: string;
   timeLabel?: string;
   highlightedLine?: string;
-  images: StoryImage[];
+  images: ImageReference[];
 };
 export type Story = {
   introduction?: string;
@@ -19,33 +17,12 @@ export type Story = {
 };
 const text = (value: unknown): string | undefined =>
   typeof value === 'string' && value.trim() ? value : undefined;
-const dimension = (value: unknown): number | undefined =>
-  typeof value === 'number' && Number.isFinite(value) && value > 0
-    ? value
-    : undefined;
-function images(input: unknown): StoryImage[] {
+function images(input: unknown): ImageReference[] {
   if (!Array.isArray(input)) return [];
   return input
-    .flatMap((item: unknown) => {
-      if (!item || typeof item !== 'object') return [];
-      const value = item as Record<string, unknown>;
-      const src = text(value.src);
-      // Content references local public/private assets, never scripts or remote trackers.
-      if (
-        !src ||
-        !src.startsWith('/') ||
-        src.startsWith('//') ||
-        typeof value.alt !== 'string'
-      )
-        return [];
-      return [
-        {
-          src,
-          alt: value.alt,
-          width: dimension(value.width),
-          height: dimension(value.height),
-        },
-      ];
+    .flatMap((item) => {
+      const image = validateImageReference(item);
+      return image ? [image] : [];
     })
     .slice(0, 3);
 }

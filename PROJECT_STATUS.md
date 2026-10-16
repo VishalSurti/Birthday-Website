@@ -1,7 +1,7 @@
 # Birthday Website — Project Status
 
-**Current phase:** Day 12 — Birthday Reveal complete
-**Next phase:** Day 13 — Media Support
+**Current phase:** Day 13 — Media Support complete
+**Next phase:** Day 14 — Mobile Responsiveness
 
 ## Completed / Locked
 
@@ -17,6 +17,7 @@
 - Day 10 — Open When
 - Day 11 — Our Story
 - Day 12 — Birthday Reveal
+- Day 13 — Media Support
 
 ## Foundation Decisions
 
@@ -79,9 +80,19 @@
 - Home remains its placeholder. For You, Open When and Our Story runtime implementations are unchanged; Our Story still has no persistent read/view/completion state. No PWA, audio, dependencies or Day 13 work were added.
 - 125 tests, all required checks and the production build pass. Chrome verified all eight reference viewports, first-use/deep-link gating, final timing, interruption, replay/history, keyboard/focus, reduced motion, simulated safe areas, image failure and prior-feature regressions. Safari/iOS and physical-device QA remain unverified.
 
+## Day 13 Media Support Decisions
+
+- One shared `ImageReference` type/validator accepts local static URLs, including future ignored private assets, preserves authored alt text (including decorative empty alt), and ignores invalid optional dimensions. Story, Reveal and letters share this validation.
+- One `MediaImage` primitive owns native image rendering, intrinsic dimensions, reserved actual/fallback aspect ratio, silent Soft Surface loading and restrained failure handling. Feature CSS retains layout, radius and spacing; callers choose cover/contain. The obsolete StoryImage/RevealImage wrappers and duplicate fallback/validation code were removed.
+- Story retains authored 0–3-image compositions, lazy lower imagery and its contained, eager current-image viewer. Same-memory swipe/keyboard scope, focus/scroll restoration and zero Story persistence remain unchanged.
+- Opening and development Home hero are eager/high priority; active Reveal media and the current viewer image are eager without high priority. Other Story imagery and optional letter photography are lazy. No image preloads, srcset pipeline, media store or new dependencies.
+- One optional photograph is exercised in the nine-letter sample collection. One new 272-byte geometric SVG is shared with the narrow 4:3 Home hero slot; Home otherwise remains its explicit placeholder. Reveal consumes known development-image dimensions without changing completion timing or state.
+- 153 tests, all seven required health checks and the production build pass. Chrome media checks passed all eight reference sizes, including image failures, viewer controls, Reveal regressions and simulated safe areas. Network inspection found 13 of 14 Story images lazy and only three initially requested at 375px; the opening made one High-priority image request. Safari/iOS and physical-device testing remain unverified.
+- Public/private separation remains intact. Real photo selection, dimensions, contextual alt text and compression remain private-content integration work; no audio/video, PWA caching or Day 14 general responsive changes were added.
+
 ## Next
 
-1. Implement Day 13 — Media Support from the locked documents.
+1. Implement Day 14 — Mobile Responsiveness from the locked documents.
 2. Continue later feature implementation in its scheduled phase.
 
 ## Genuine Implementation Decisions Remaining

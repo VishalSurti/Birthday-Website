@@ -1,6 +1,6 @@
 import { revealTiming } from './revealTiming';
 import { useEffect, useRef, useState, type CSSProperties } from 'react';
-import { RevealImage } from './RevealImage';
+import { MediaImage } from '../../components/media/MediaImage';
 import type { RevealScene } from './revealContent';
 import type { RevealStore } from './revealStorage';
 
@@ -106,10 +106,17 @@ export function RevealExperience({
           <p className="reveal-context">[BIRTHDAY OPENING PLACEHOLDER]</p>
           <h1>[Personal opening line]</h1>
           <p className="reveal-support">[Placeholder supporting line]</p>
-          <RevealImage
+          <MediaImage
+            className="reveal-image"
+            loading="eager"
+            fit="contain"
+            fallbackRatio="4 / 5"
+            fetchPriority="high"
             image={{
               src: '/app-assets/reveal-placeholders/composition-01.svg',
               alt: 'Development placeholder image for Birthday Reveal layout testing.',
+              width: 400,
+              height: 500,
             }}
           />
           <button
@@ -148,9 +155,25 @@ export function RevealExperience({
           key={scene.id}
           className={`reveal-scene ${final ? 'reveal-scene--final' : ''}`}
         >
-          {final && scene.image && <RevealImage image={scene.image} />}
+          {final && scene.image && (
+            <MediaImage
+              className="reveal-image"
+              loading="eager"
+              fit="contain"
+              fallbackRatio="4 / 5"
+              image={scene.image}
+            />
+          )}
           <h1>{scene.headline}</h1>
-          {!final && scene.image && <RevealImage image={scene.image} />}
+          {!final && scene.image && (
+            <MediaImage
+              className="reveal-image"
+              loading="eager"
+              fit="contain"
+              fallbackRatio="4 / 5"
+              image={scene.image}
+            />
+          )}
           {scene.body && <p>{scene.body}</p>}
         </div>
       </div>

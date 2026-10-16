@@ -1,6 +1,15 @@
-export type Letter = { id: string; title: string; body: string };
+import {
+  validateImageReference,
+  type ImageReference,
+} from '../../components/media/imageReference';
+export type Letter = {
+  id: string;
+  title: string;
+  body: string;
+  image?: ImageReference;
+};
 
-// First valid occurrence wins; retain authored order. Optional media is deferred.
+// First valid occurrence wins; retain authored order. Optional invalid media never discards writing.
 export function validateLetters(input: unknown): Letter[] {
   if (!Array.isArray(input)) return [];
   const ids = new Set<string>();
@@ -18,6 +27,13 @@ export function validateLetters(input: unknown): Letter[] {
     )
       return [];
     ids.add(value.id);
-    return [{ id: value.id, title: value.title, body: value.body }];
+    return [
+      {
+        id: value.id,
+        title: value.title,
+        body: value.body,
+        image: validateImageReference(value.image),
+      },
+    ];
   });
 }

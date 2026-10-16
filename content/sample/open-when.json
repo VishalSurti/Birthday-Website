@@ -2,7 +2,13 @@
   {
     "id": "letter-01",
     "title": "[PLACEHOLDER OPEN WHEN TITLE 01]",
-    "body": "[PLACEHOLDER LETTER BODY 01 — DEVELOPMENT ONLY]"
+    "body": "[PLACEHOLDER LETTER BODY 01 — DEVELOPMENT ONLY]",
+    "image": {
+      "src": "/app-assets/media-placeholder.svg",
+      "alt": "Development placeholder image for layout testing.",
+      "width": 800,
+      "height": 600
+    }
   },
   {
     "id": "letter-02",

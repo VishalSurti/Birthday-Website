@@ -37,19 +37,10 @@
 }
 .reveal-image {
   display: block;
-  object-fit: contain;
   border-radius: var(--radius-medium);
   inline-size: auto;
   max-inline-size: 100%;
   block-size: min(34dvh, 300px);
-}
-.reveal-image--fallback {
-  aspect-ratio: 4 / 5;
-  display: grid;
-  place-items: center;
-  background: var(--reveal-background);
-  color: var(--reveal-text-secondary);
-  font: var(--type-caption-size) var(--font-ui);
 }
 .reveal-primary {
   min-block-size: 52px;

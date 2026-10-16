@@ -109,6 +109,10 @@ describe('entry and first Reveal', () => {
       expect(
         screen.queryByRole('heading', { name: '[REVEAL LINE 01]' }),
       ).toBeNull();
+      const openingImage = screen.getByRole('img');
+      expect(openingImage.getAttribute('loading')).toBe('eager');
+      expect(openingImage.getAttribute('fetchpriority')).toBe('high');
+      expect(openingImage.parentElement?.style.aspectRatio).toBe('400 / 500');
       await start();
       const cue = screen.getByRole('button', { name: 'Tap to continue' });
       expect(document.activeElement).toBe(cue);

@@ -130,3 +130,8 @@ html:has(.letter-layout) {
     animation: none;
   }
 }
+
+.letter-photo {
+  margin-block: var(--space-8);
+  border-radius: var(--radius-medium);
+}

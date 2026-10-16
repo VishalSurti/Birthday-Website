@@ -9,3 +9,5 @@ Final icons, PWA artwork and Open Graph artwork are deferred. Fonts are bundled 
 `story-placeholders/` contains six locally authored geometric SVG development assets in the approved palette. These are neither personal photography nor release artwork. Story sample content references every asset to test image composition and the full-screen viewer. Replace those references with ignored private photography before release; do not commit private replacements here.
 
 `reveal-placeholders/` contains two artificial geometric SVGs for opening/Reveal layout testing, in the approved Reveal palette. Both are used by the development experience. They are not personal photography or release artwork.
+
+`media-placeholder.svg` is one 272-byte artificial 4:3 composition shared by the development Home hero slot and the optional sample letter photo. Real photo format/compression choices remain later private integration work; no image transformation or caching pipeline is introduced.
