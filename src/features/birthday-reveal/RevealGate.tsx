@@ -5,6 +5,7 @@ import { createRevealStore, type RevealStore } from './revealStorage';
 import { validateReveal } from './revealContent';
 import { RevealExperience } from './RevealExperience';
 import { ReplayContext } from './replayContext';
+import { InstallProvider } from '../install/InstallProvider';
 import './birthday-reveal.css';
 
 const replayPath = '/birthday-reveal';
@@ -66,7 +67,7 @@ export function RevealGate({
       />
     );
   return (
-    <>
+    <InstallProvider>
       {location.pathname === replayPath ? (
         grant && location.state?.revealToken === grant.token ? (
           <RevealExperience
@@ -89,6 +90,6 @@ export function RevealGate({
           {children}
         </ReplayContext>
       )}
-    </>
+    </InstallProvider>
   );
 }

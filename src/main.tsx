@@ -2,10 +2,13 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router';
 import { AppRoutes } from './app/router';
+import { getInstallCapability } from './features/install/installCapability';
 import './styles/fonts.css';
 import './styles/tokens.css';
 import './styles/reset.css';
 import './styles/globals.css';
+
+getInstallCapability();
 
 const root = document.getElementById('root');
 if (!root) throw new Error('Application root is missing.');

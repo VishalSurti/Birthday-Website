@@ -1,7 +1,7 @@
 # Birthday Website — Project Status
 
-**Current phase:** Day 15 — Local Persistence complete
-**Next phase:** Day 16 — PWA Setup
+**Current phase:** Day 16 — PWA Setup complete
+**Next phase:** Day 17 — Animations & Motion Polish
 
 ## Completed / Locked
 
@@ -20,6 +20,7 @@
 - Day 13 — Media Support
 - Day 14 — Mobile Responsiveness
 - Day 15 — Local Persistence
+- Day 16 — PWA Setup
 
 ## Foundation Decisions
 
@@ -111,16 +112,27 @@
 - Install-dismissal persistence is intentionally deferred to Day 16 because no installation experience consumes it yet. No unused field, PWA behavior, dependency, backend, cloud sync, content snapshot or tracking state was added.
 - All 153 existing tests remain, with 27 new boundary/resilience/compatibility tests: 180 tests pass. All seven required project commands and the production build pass. Isolated Chrome verified actual payload fields, normal/cleared state, session stability/non-repeat, reader timing, Reveal interruption/completion, injected access/write denial, zero Story storage calls and layout/flow regressions at 375 × 667 and 1440 × 900. Safari/iOS, Android browser and physical-device verification remain outstanding.
 
+## Day 16 PWA Decisions
+
+- `vite-plugin-pwa` 2.0.0 is the only new direct dependency (development), with verified Vite 8 / Node 22 compatibility. Its generated worker handles revisioned assets, automatic activation/client claiming and obsolete-precache cleanup; normal development does not register a worker. No custom worker, update UI, push, sync, backend or analytics was added.
+- The public-safe provisional manifest uses **Birthday Website** / **Birthday**, `Made especially for you.`, `/` start/scope, standalone display and Canvas theme/background. Replaceable geometric Canvas/Plum icons provide 192/512px PNGs, a mask-safe 512px composition, Apple 180px PNG and SVG source. Final name/artwork remain release decisions; external non-spoiler metadata and noindex are preserved.
+- One generated precache uses four public-only patterns for the HTML shell, registration, hashed JS/CSS/fonts and public app imagery/icons, plus the manifest. Bundled writing remains in JS. Explicit `**/private-assets/**` exclusion and disabled duplicate automatic icon inclusion prevent private filename enumeration. One bounded same-origin `/private-assets/` image-only StaleWhileRevalidate cache retains at most 60 actually requested images; no arbitrary GET, cross-origin, API or audio caching. Asset paths are excluded from the cached SPA navigation fallback.
+- Install capability is captured early into memory and default promotion prevented, independently of UI eligibility. The controller mounts only inside the completed normal app and survives replay. Proactive eligibility requires actual **Home → content section → Home**, including a valid nested letter reader after Home; intercepted links, More and replay do not qualify. A suggestion appears at most once per runtime and does not steal focus.
+- Explicit Not now or native dismissal writes only `{ version: 1, installPromptDismissed: true }` to `birthday.install.v1` via the Day 15 helper. Failures respect dismissal in memory. Existing four storage keys/formats/timing remain unchanged; eligibility, shown state, deferred events, installed state and visit history are not persisted. Story interactions still make zero application-storage calls.
+- More retains Replay and installation after proactive dismissal. Native prompting is deliberate and consumes its deferred event once; unavailable prompting opens concise browser/iOS guidance. A shared native Paper sheet avoids nested dialogs and restores focus. Standalone/iOS standalone and `appinstalled` suppress install surfaces while retaining Replay, including when guidance was open. Home otherwise remains its development placeholder; existing feature motion/timing is unchanged.
+- Production Chrome verified manifest/icons, active controlling worker and zero reported installability errors. Cached offline first-use Reveal, returning Home, direct content/reader routes, writing/fonts/public media, private-image runtime caching and uncached-image recovery passed. An ignored artificial private-path image was excluded from precache while present; cross-origin image requests were not cached. A real asset revision update activated and removed the old cache revision without forcibly reloading the running app; the temporary change/image were removed and the final build retested. Fresh uncached offline navigation correctly cannot load the app.
+- All 180 existing tests remain, with 31 new focused tests (211 total passing); one old More assertion now expects the approved Install row. All seven required commands and `pwa:check` pass. Install UI passed 320 × 568, 375 × 667, 844 × 390, 768 × 1024 and 1440 × 900 checks, keyboard/focus and simulated safe areas. Native outcomes/standalone/iOS guidance were simulated; real Safari/iOS and Android installation and production-host SPA fallback still require release verification. No software issue blocks Day 17.
+
 ## Next
 
-1. Implement Day 16 — PWA Setup from the locked documents.
+1. Continue with Day 17 — Animations & Motion Polish from the locked documents.
 2. Continue later feature implementation in its scheduled phase.
 
 ## Genuine Implementation Decisions Remaining
 
-- installation dismissal persistence remains deferred to Day 16; existing For You, Open When and Reveal persistence is hardened; Our Story intentionally has no persistent memory-view state
-- PWA/service-worker tooling and cache strategy
 - final PWA name and icon artwork
+- real Safari/iOS and Android installation verification
+- production-host deployment and SPA history-fallback verification
 - final Open Graph preview artwork
 - final private content and photography integration
 

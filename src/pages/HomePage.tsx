@@ -1,6 +1,7 @@
 import { MediaImage } from '../components/media/MediaImage';
 import './HomePage.css';
 import { PageHeader } from '../components/layout/PageHeader';
+import { InstallSuggestion } from '../features/install/InstallSuggestion';
 
 export function HomePage() {
   return (
@@ -18,6 +19,7 @@ export function HomePage() {
         loading="eager"
         fetchPriority="high"
       />
+      <InstallSuggestion />
     </>
   );
 }

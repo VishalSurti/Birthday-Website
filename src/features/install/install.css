@@ -1,0 +1,39 @@
+.install-suggestion {
+  margin-block-start: var(--space-8);
+  padding: var(--space-6);
+  border: var(--border-default);
+  border-radius: var(--radius-large);
+  background: var(--color-paper);
+}
+.install-title {
+  margin-block: 0 var(--space-3);
+  font: var(--type-heading3-editorial-weight)
+    var(--type-heading3-editorial-size) /
+    var(--type-heading3-editorial-line-height) var(--font-editorial);
+}
+.install-copy {
+  font-size: var(--type-ui-body-size);
+  line-height: var(--type-ui-body-line-height);
+}
+.install-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+.install-primary,
+.install-secondary {
+  min-block-size: var(--target-min);
+  padding: var(--space-3) var(--space-5);
+  border: 0;
+  border-radius: var(--radius-small);
+  font-size: var(--type-ui-body-size);
+  cursor: pointer;
+}
+.install-primary {
+  background: var(--color-plum-strong);
+  color: var(--color-paper);
+}
+.install-secondary {
+  background: transparent;
+  color: var(--color-plum-strong);
+}

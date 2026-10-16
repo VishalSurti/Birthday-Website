@@ -194,7 +194,9 @@ describe('returning entry and replay', () => {
       const state = app(path, true);
       fireEvent.click(screen.getByRole('button', { name: 'More' }));
       expect(screen.getByRole('dialog', { name: 'More' })).toBeTruthy();
-      expect(screen.queryByText(/Install|Add to Home Screen/)).toBeNull();
+      expect(
+        screen.getByRole('button', { name: 'Install / Add to Home Screen' }),
+      ).toBeTruthy();
       fireEvent.click(
         screen.getByRole('button', { name: 'Replay Birthday Surprise' }),
       );

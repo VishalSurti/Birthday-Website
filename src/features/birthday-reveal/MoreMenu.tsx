@@ -1,5 +1,7 @@
-import { useContext, useEffect, useRef, useState } from 'react';
-import { createPortal } from 'react-dom';
+import { useContext, useRef, useState } from 'react';
+import { PaperSheet } from '../../components/layout/PaperSheet';
+import { useInstall } from '../install/InstallContext';
+import { InstallHelp } from '../install/InstallHelp';
 import { useLocation, useNavigate } from 'react-router';
 import { ReplayContext } from './replayContext';
 
@@ -54,48 +56,34 @@ function MoreSheet({
   onReplay: () => void;
   onRestore: () => void;
 }) {
-  const dialog = useRef<HTMLDialogElement>(null);
-  const restore = useRef(onRestore);
-  useEffect(() => {
-    const node = dialog.current!;
-    const overflow = document.body.style.overflow;
-    const restoreFocus = restore.current;
-    node.showModal();
-    document.body.style.overflow = 'hidden';
-    return () => {
-      node.close();
-      document.body.style.overflow = overflow;
-      restoreFocus();
-    };
-  }, []);
-  return createPortal(
-    <dialog
-      ref={dialog}
-      className="more-sheet"
-      aria-label="More"
-      onCancel={(event) => {
-        event.preventDefault();
-        onClose();
-      }}
-      onClick={(event) => {
-        if (event.target === event.currentTarget) {
-          const box = event.currentTarget.getBoundingClientRect();
-          if (
-            event.clientY < box.top ||
-            event.clientX < box.left ||
-            event.clientX > box.right
-          )
-            onClose();
-        }
-      }}
+  const install = useInstall();
+  const [help, setHelp] = useState(false);
+  const showingHelp = help && install?.available;
+  return (
+    <PaperSheet
+      label={showingHelp ? 'Add to Home Screen' : 'More'}
+      onClose={onClose}
+      onRestore={onRestore}
     >
-      <button className="more-sheet__close" onClick={onClose}>
-        Close <span aria-hidden="true">×</span>
-      </button>
-      <button className="more-sheet__row" onClick={onReplay}>
-        Replay Birthday Surprise
-      </button>
-    </dialog>,
-    document.body,
+      {showingHelp ? (
+        <InstallHelp />
+      ) : (
+        <>
+          <button className="more-sheet__row" onClick={onReplay}>
+            Replay Birthday Surprise
+          </button>
+          {install?.available && (
+            <button
+              className="more-sheet__row"
+              onClick={async () => {
+                if (await install.request()) setHelp(true);
+              }}
+            >
+              Install / Add to Home Screen
+            </button>
+          )}
+        </>
+      )}
+    </PaperSheet>
   );
 }
