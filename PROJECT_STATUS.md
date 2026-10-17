@@ -1,7 +1,7 @@
 # Birthday Website — Project Status
 
-**Current phase:** Day 18 — Accessibility & Performance complete
-**Next phase:** Day 19 — First Deployment
+**Current phase:** Day 19 — First Deployment complete
+**Next phase:** Day 20 — Final For You Content
 
 ## Completed / Locked
 
@@ -150,16 +150,26 @@
 - PWA configuration/privacy remained unchanged: one revisioned public precache plus the existing bounded 60-entry same-origin private-image runtime route, with private filenames excluded. Final artifact checks passed; the current worker served cached root, internal, letter and Story routes offline, and uncached-image failure preserved viewer escape. Standalone/storage/privacy regressions passed in the existing suite. No deployment/provider/configuration work began.
 - All 214 existing tests remain, with three focused regression cases (217 total), strengthened Reveal/media/guidance assertions, and all eight required health/build/PWA commands passing. No known major code-level accessibility blocker remains before Day 19. Home/authentic content, physical-browser/device validation and production-host behavior remain their existing release/deployment work.
 
+## Day 19 — First Deployment
+
+- Deployed the existing GitHub `main` branch to Vercel's static Vite hosting over HTTPS. The production domain is recorded in the creator's Vercel `birthday-website` project and private deployment handoff rather than advertised in this public repository. Initial production verification matched preparation commit `5516fae`, its successful Vercel Git status and the deployed build artifacts. The final documentation commit must also receive a successful production deployment before handoff.
+- Configuration remains only the documented `vercel.json` SPA rewrite to `/index.html`; repository root, Node 22.x, `npm ci`, `npm run build`, `dist`, no environment variables or server functions. No application, storage-key, cache-policy or dependency change was needed. Direct loads and browser refreshes passed for `/`, `/for-you`, `/open-when`, `/open-when/letter-01` and `/our-story`; unknown URLs reached the React recovery screen.
+- Actual production Chrome verification covered first-use opening, deliberate Reveal entry, deep-link gating, interrupted final-scene restart, successful celebration completion, first Home and returning Home. For You Featured/All/discovery/readers, first/repeated Open When readers, continuous Story and same-memory viewer, More, replay exit/completion and browser Back/Forward were exercised. Keyboard walks, touch viewer boundaries, focus restoration and peer/viewer scroll restoration passed at phone and desktop sizes, with landscape and normal/reduced motion coverage. Existing local/session storage keys remain unchanged.
+- Manifest, root scope/start URL, 192/512 icons, Apple touch icon, activated controlling service worker and Chrome installability passed. A genuine browser install event was captured without proactively prompting; controlled platform-outcome tests confirmed early capture stays silent until the completed Home → section → Home sequence and explicit install action. Persisted dismissal, More's manual help and standalone simulation passed. No actual OS installation or physical-device result is claimed.
+- Cached production opening/Reveal, Home, For You, long letter, Story, public images and local fonts worked offline. An uncached image showed the accessible fallback while preserving viewer escape. A brand-new isolated context's first-ever offline navigation correctly failed without a cached app. No private file was created for testing.
+- Generated production code retains revisioned precaching, automatic registration, `skipWaiting`, `clientsClaim` and outdated-cache cleanup. A real registration update check retained the activated controller without forcing a document reload. This documentation-only deployment leaves application revisions unchanged; no artificial asset update was deployed, so a changed-revision upgrade transition was not re-exercised on the production host.
+- Only public development fixtures were deployed. Fresh output and tracked-path audits found no private files, credentials, source maps or private filenames in the 20-entry public precache; the existing requested-image runtime route remains bounded to 60 entries. Representative online flows had no failed/external requests, console warnings/errors or uncaught exceptions. Fonts and media were served locally. Live noindex/nofollow and non-spoiler metadata were verified; the unlisted URL remains publicly accessible, not authenticated.
+- Final clean install and all eight required health/build/PWA commands passed: 217 tests in 20 files; npm reported zero vulnerabilities. No new dependencies or deployment-specific application fixes. Real Safari/iOS, Android and physical-device installation/browser validation remain pending, along with authentic content, final Home, PWA branding and Open Graph artwork. Day 20 has not begun.
+
 ## Next
 
-1. Continue with Day 19 — First Deployment from the locked documents.
-2. Continue later feature implementation in its scheduled phase.
+1. Day 20 — Final For You Content is the next scheduled phase; not started.
+2. Continue later work only in its scheduled phase.
 
 ## Genuine Implementation Decisions Remaining
 
 - final PWA name and icon artwork
 - real Safari/iOS and Android installation verification
-- production-host deployment and SPA history-fallback verification
 - final Open Graph preview artwork
 - final private content and photography integration
 

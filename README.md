@@ -65,7 +65,7 @@ Public artificial placeholders remain under `/public/app-assets/`. Real photos b
 
 ## PWA build and installation
 
-`npm run build` uses `vite-plugin-pwa` to generate the manifest, registration script and service worker. Run `npm run pwa:check` after building, then `npm run preview` for production/offline verification in a separate browser profile. Normal Vite development does not register a service worker. Deployment requires HTTPS (localhost is supported for testing) and the host must serve `index.html` for uncached application deep links; no hosting provider is assumed.
+`npm run build` uses `vite-plugin-pwa` to generate the manifest, registration script and service worker. Run `npm run pwa:check` after building, then `npm run preview` for production/offline verification in a separate browser profile. Normal Vite development does not register a service worker. Deployment requires HTTPS (localhost is supported for testing) and the host must serve `index.html` for uncached application deep links; the Vercel configuration below provides this fallback.
 
 The public-safe name **Birthday Website** / **Birthday** and geometric Canvas/Plum icons are provisional. PNGs at 192/512px, an Apple 180px icon and a replaceable SVG source live under `public/app-assets/icons/`. Final name/icon artwork remain release decisions; existing noindex and non-spoiler external metadata are preserved.
 
@@ -79,9 +79,9 @@ One generated revisioned precache covers the SPA shell, hashed JS/CSS, bundled w
 
 Precaching uses public-only patterns plus an explicit `**/private-assets/**` exclusion. **Future private filenames must never be added to the public precache manifest**, including through broad `includeAssets` options. Private assets are also excluded from SPA navigation fallback. One bounded `birthday-private-images` cache (60 entries, StaleWhileRevalidate) handles only requested same-origin image resources under `/private-assets/`; it does not prefetch/list private media or cache arbitrary GETs, cross-origin resources or audio. Cache Storage is device-local and is not uploaded or exposed in UI. An unlisted URL/noindex remains controlled distribution, not authentication.
 
-Offline operation requires a successful previous online load/cache installation. After that, normal routes and bundled writing/public imagery work offline; actually viewed private images may remain available. Missing uncached imagery uses `MediaImage` failure handling and keeps writing/viewer escape usable. A first-ever uncached offline visit cannot load the application. Real Safari/iOS and Android installation plus production-host deployment still require release verification.
+Offline operation requires a successful previous online load/cache installation. After that, normal routes and bundled writing/public imagery work offline; actually viewed private images may remain available. Missing uncached imagery uses `MediaImage` failure handling and keeps writing/viewer escape usable. A first-ever uncached offline visit cannot load the application. Real Safari/iOS and Android installation still require release verification; production-host results are recorded in `PROJECT_STATUS.md`.
 
-## Deployment preparation
+## Deployment
 
 Vercel is the selected static host for the first deployment. Import the existing GitHub repository with the **Vite** framework preset, repository-root directory, `npm ci` install command, `npm run build` build command and `dist` output directory. Use Node **22.x**, consistent with the existing package engine range. No environment variables, backend, provider SDK or runtime functions are required. Keep `main` as the production branch; connected Git pushes provide subsequent deployments.
 
@@ -89,4 +89,4 @@ The root `vercel.json` uses Vercel's documented SPA rewrite to `/index.html` so 
 
 Before any deployment, run `npm ci`, `npm run check`, `npm run build` and `npm run pwa:check`. Inspect `dist/` as well as Git: Vite copies `public/`, including any locally ignored assets, into the build. The initial deployment must contain only the public development fixtures; do not upload a local build containing private assets or credentials. Prefer the connected GitHub build for this initial public-safe version.
 
-Repository preparation does not prove deployment success. After hosting-account/GitHub authorization, verify the actual HTTPS production URL, valid/unknown direct routes and refreshes, first-use/returning flows, PWA registration, install timing, cached offline operation and updates. Real Safari/iOS, Android-browser and physical-device verification remains pending. Day 19 is not complete until live verification is recorded in `PROJECT_STATUS.md`.
+The initial HTTPS production deployment and browser verification are recorded in `PROJECT_STATUS.md`. Obtain the unlisted production domain from the creator’s Vercel project rather than publishing it here. After subsequent deployments, verify the successful Vercel status belongs to the pushed `main` commit, then check the live routes and artifact versions. Documentation-only changes may correctly leave service-worker revisions unchanged. Real Safari/iOS, Android-browser and physical-device verification remains pending.
