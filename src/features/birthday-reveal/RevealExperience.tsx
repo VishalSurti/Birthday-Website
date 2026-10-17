@@ -187,7 +187,13 @@ export function RevealExperience({
       <button
         ref={advance}
         className="reveal-advance"
-        aria-label={final ? 'Continue to Home' : 'Tap to continue'}
+        aria-label={
+          final
+            ? finished
+              ? 'Continue to Home'
+              : 'A birthday moment'
+            : 'Tap to continue'
+        }
         aria-disabled={phase !== 'ready' || (final && !finished)}
         onClick={progress}
         onKeyDown={(event) => {

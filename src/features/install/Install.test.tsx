@@ -182,14 +182,17 @@ it('persists Not now, suppresses future promotion, but retains More/manual insta
   navigate('/');
   expect(screen.queryByText('Keep this close')).toBeNull();
   fireEvent.click(screen.getByRole('button', { name: 'More' }));
-  await act(async () =>
-    fireEvent.click(
-      screen.getByRole('button', { name: 'Install / Add to Home Screen' }),
-    ),
-  );
+  const installAction = screen.getByRole('button', {
+    name: 'Install / Add to Home Screen',
+  });
+  installAction.focus(); // Keyboard activation removes this focused action.
+  await act(async () => fireEvent.click(installAction));
   expect(
     screen.getByRole('heading', { name: 'Add to Home Screen' }),
   ).toBeTruthy();
+  expect(document.activeElement).toBe(
+    screen.getByRole('button', { name: /Close/ }),
+  );
   expect(screen.getAllByRole('dialog')).toHaveLength(1);
   fireEvent.click(screen.getByRole('button', { name: /Close/ }));
   await waitFor(() => expect(screen.queryByRole('dialog')).toBeNull());

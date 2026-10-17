@@ -52,6 +52,9 @@
 .letter-card--opened {
   background: var(--color-surface-soft);
 }
+.letter-card--opened .letter-state {
+  color: var(--color-plum);
+}
 .letter-card--opened .letter-seam {
   opacity: 0.45;
 }

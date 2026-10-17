@@ -1,7 +1,7 @@
 # Birthday Website — Project Status
 
-**Current phase:** Day 17 — Animations & Motion Polish complete
-**Next phase:** Day 18 — Accessibility & Performance
+**Current phase:** Day 18 — Accessibility & Performance complete
+**Next phase:** Day 19 — First Deployment
 
 ## Completed / Locked
 
@@ -22,6 +22,7 @@
 - Day 15 — Local Persistence
 - Day 16 — PWA Setup
 - Day 17 — Animations & Motion Polish
+- Day 18 — Accessibility & Performance
 
 ## Foundation Decisions
 
@@ -134,9 +135,24 @@
 - All 214 existing tests pass, along with standalone health commands, the full project check, production build and PWA check (20 unique public precache entries). No cosmetic CSS unit tests were added; existing semantic coverage was retained and actual browser checks exercised the changed surfaces. Production checks passed all six viewport/preference combinations, including mid-animation Escape/Close/Back, focus, keyboard, emulated touch swipes, peer/viewer scroll restoration, zero Story storage calls, installation-help/dismissal, first Reveal and completed replay/Back. Manual installation help was deliberately exercised through a test-browser fallback; physical Safari/iOS, Android and device verification remain pending.
 - The pre-Day-17 engineering fixes remain intact: primary-section scroll restoration, explicit For You opening-control focus and sequential multi-instance persisted-ID merging. PWA caching/privacy, content and feature scope were not changed. No issue blocks Day 18.
 
+## Day 18 Accessibility & Performance Decisions
+
+- The implemented app was audited before targeted fixes, using locked requirements, source/tests, a fresh production baseline and native Chrome accessibility-tree/network/keyboard checks. This is a code-level audit, not formal WCAG conformance certification or physical screen-reader/device validation.
+- Fixed the final Reveal control name: it now exposes “A birthday moment” during the locked final interval and “Continue to Home” only after completion. Retained `aria-disabled` and the existing input guards to preserve the stable focused progression control. No scene, celebration, replay, completion or storage timing changed; exact normal/reduced timing tests remain intact.
+- Removed the For You card's overriding accessible label, allowing native button naming to include its actual visible Tap to open / Read again cue, title and status. Explicit opening-control focus and reader restoration remain unchanged.
+- Native PaperSheet initial focus already reached Close correctly. A separate keyboard reproduction showed that switching More's focused Install action to guidance removed the action and left focus on body. A small label-change check now focuses the existing Close button only when focus has fallen outside the dialog; native modality/trapping, immediate dismissal and trigger restoration were retained.
+- Independent contrast measurement found Warm Grey on Soft Surface at 4.459:1 in opened-letter status and meaningful image-error captions. Scoped existing-token changes yield Plum/Soft Surface 5.057:1 and Ink/Soft Surface 13.672:1 respectively. Other measured active text/focus pairs already passed and were left unchanged: secondary Canvas 4.820 / Paper 5.298 / Pale Plum 4.600, Deep Plum/Canvas 7.578, Paper/Deep Ink 17.635 and Reveal secondary/Deep Ink 10.706. Inactive selectable controls remain legible; disabled-control opacity was not incorrectly treated as an active-text failure.
+- MediaImage was the only performance/code-quality fix: a source mismatch now derives loading status without a render-phase state update. Load/error and cached-image ref settlement, reserved ratio/dimensions, authored/decorative alt semantics, loading priorities and fit remain intact. Existing error-to-new-source coverage was strengthened and a successful-image-to-new-source case added.
+- Audited and already correct: main/nav/heading structure, native action/link/dialog semantics, current navigation and pressed-view states, unique IDs, meaningful/decorative media plumbing, polite Reveal scene updates, hidden viewer dots/status, timer/listener cleanup and narrow feature-store subscriptions. No extra landmarks/live regions, custom focus trap or utility layer was justified. Day 17 motion, peer-section scroll, For You origins and multi-instance persistence merging remain intact.
+- Production keyboard walks passed at 375 × 667 and 1440 × 900 in normal/reduced motion, covering Tab/Shift+Tab/Enter/Space/Escape/arrows, skip/nav, readers, viewer, More/guidance, install help and replay Exit. Reflow/target checks passed 96 surface cases at 320 × 568, 375 × 667, 844 × 390 and 1440 × 900, including 200% root text at phone/landscape and simulated safe areas: no horizontal overflow or under-44px visible controls. Final accessibility trees confirmed corrected names, modal background isolation and no duplicate IDs. Spoken screen-reader behavior and real Safari/iOS/Android devices remain pending.
+- Final raw production assets: one JS bundle 302,289 bytes (Vite gzip approximately 92.22kB), CSS 27,674 bytes (approximately 5.67kB gzip), Geist WOFF2 29,400 bytes and Newsreader WOFF2 58,084 bytes. Largest public image/icon is the 512px PNG at 3,912 bytes; generated sw.js is 2,857 bytes. The 20 public precache URLs total approximately 430kB raw. No duplicate app/font chunks, source maps or disproportionate public image was found.
+- Performance behavior was otherwise already appropriate: 13 of 14 narrative Story images remain lazy, only three unique Story image URLs were requested initially at phone size, and the measured Story load had no observed layout shifts. Both fonts are local normal variable WOFF2 with swap; fallback text remained visible while requests were held. No unexpected third-party application requests, tracking, console warnings/errors or uncaught exceptions occurred in representative online flows. No route splitting, speculative memoization, preloads, new dependency, runtime instrumentation or arbitrary score/budget framework was added; Lighthouse was not installed for the audit.
+- PWA configuration/privacy remained unchanged: one revisioned public precache plus the existing bounded 60-entry same-origin private-image runtime route, with private filenames excluded. Final artifact checks passed; the current worker served cached root, internal, letter and Story routes offline, and uncached-image failure preserved viewer escape. Standalone/storage/privacy regressions passed in the existing suite. No deployment/provider/configuration work began.
+- All 214 existing tests remain, with three focused regression cases (217 total), strengthened Reveal/media/guidance assertions, and all eight required health/build/PWA commands passing. No known major code-level accessibility blocker remains before Day 19. Home/authentic content, physical-browser/device validation and production-host behavior remain their existing release/deployment work.
+
 ## Next
 
-1. Continue with Day 18 — Accessibility & Performance from the locked documents.
+1. Continue with Day 19 — First Deployment from the locked documents.
 2. Continue later feature implementation in its scheduled phase.
 
 ## Genuine Implementation Decisions Remaining

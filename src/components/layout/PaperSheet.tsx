@@ -14,6 +14,7 @@ export function PaperSheet({
   onRestore: () => void;
 }) {
   const dialog = useRef<HTMLDialogElement>(null);
+  const closeButton = useRef<HTMLButtonElement>(null);
   const restore = useRef(onRestore);
   useEffect(() => {
     const node = dialog.current!;
@@ -27,6 +28,11 @@ export function PaperSheet({
       restoreFocus();
     };
   }, []);
+  useEffect(() => {
+    // Replacing a focused sheet action with guidance can leave focus on body.
+    if (!dialog.current?.contains(document.activeElement))
+      closeButton.current?.focus();
+  }, [label]);
   return createPortal(
     <dialog
       ref={dialog}
@@ -48,7 +54,7 @@ export function PaperSheet({
         }
       }}
     >
-      <button className="more-sheet__close" onClick={onClose}>
+      <button ref={closeButton} className="more-sheet__close" onClick={onClose}>
         Close <span aria-hidden="true">×</span>
       </button>
       {children}

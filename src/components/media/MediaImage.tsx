@@ -19,12 +19,12 @@ export function MediaImage({
   fallbackRatio = '4 / 3',
 }: Props) {
   const [state, setState] = useState({ src: image.src, status: 'loading' });
-  if (state.src !== image.src) setState({ src: image.src, status: 'loading' });
+  const status = state.src === image.src ? state.status : 'loading';
   const decorative = image.alt === '';
   return (
     <span
       className={`media-image ${className}`}
-      data-state={state.status}
+      data-state={status}
       aria-hidden={decorative || undefined}
       style={{
         aspectRatio:
@@ -33,7 +33,7 @@ export function MediaImage({
             : fallbackRatio,
       }}
     >
-      {state.status === 'error' ? (
+      {status === 'error' ? (
         <span
           className="media-image__fallback"
           role={decorative ? undefined : 'img'}
@@ -44,11 +44,7 @@ export function MediaImage({
       ) : (
         <img
           ref={(node) => {
-            if (
-              node?.complete &&
-              node.naturalWidth > 0 &&
-              state.status !== 'loaded'
-            )
+            if (node?.complete && node.naturalWidth > 0 && status !== 'loaded')
               setState({ src: image.src, status: 'loaded' });
           }}
           src={image.src}

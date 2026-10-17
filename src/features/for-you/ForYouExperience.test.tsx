@@ -9,6 +9,7 @@ import {
 } from '@testing-library/react';
 import { BrowserRouter } from 'react-router';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { ClosedMessage } from './ClosedMessage';
 import { ForYouExperience } from './ForYouExperience';
 import { createForYouStore } from './forYouStorage';
 
@@ -71,7 +72,7 @@ async function closeReader() {
   await waitFor(() => expect(screen.queryByRole('dialog')).toBeNull());
 }
 async function openFeatured() {
-  const origin = screen.getByRole('button', { name: 'Open message' });
+  const origin = screen.getByRole('button', { name: /Tap to open/ });
   fireEvent.click(origin);
   await screen.findByText('[PLACEHOLDER BODY A]');
   return origin;
@@ -82,7 +83,7 @@ describe('For You flows', () => {
     const { store } = setup();
     expect(store.getSnapshot().seenIds).toEqual([]);
     expect(screen.queryByText('[PLACEHOLDER BODY A]')).toBeNull();
-    const origin = screen.getByRole('button', { name: 'Open message' });
+    const origin = screen.getByRole('button', { name: /Tap to open/ });
     fireEvent.click(origin);
     expect(store.getSnapshot().seenIds).toEqual([]);
     expect(screen.getByRole('status').textContent).toBe('Opening message…');
@@ -94,7 +95,7 @@ describe('For You flows', () => {
     await waitFor(() => expect(store.getSnapshot().seenIds).toEqual(['a']));
     await closeReader();
     await waitFor(() => expect(document.activeElement).toBe(origin));
-    fireEvent.click(screen.getByRole('button', { name: 'Read again' }));
+    fireEvent.click(screen.getByRole('button', { name: /Read again/ }));
     await screen.findByText('[PLACEHOLDER BODY A]');
     await waitFor(() => expect(store.getSnapshot().seenIds).toEqual(['a']));
     await closeReader();
@@ -102,7 +103,7 @@ describe('For You flows', () => {
 
   it('does not mark a message seen when closed before the reveal finishes', async () => {
     const { store } = setup();
-    fireEvent.click(screen.getByRole('button', { name: 'Open message' }));
+    fireEvent.click(screen.getByRole('button', { name: /Tap to open/ }));
     await closeReader();
     await new Promise((resolve) => setTimeout(resolve, 250));
     expect(store.getSnapshot().seenIds).toEqual([]);
@@ -123,7 +124,7 @@ describe('For You flows', () => {
       expect(within(dialog).queryByText('[PLACEHOLDER BODY B]')).toBeNull();
       expect(store.getSnapshot().seenIds).toEqual(['a']);
       fireEvent.click(
-        within(dialog).getByRole('button', { name: 'Open message' }),
+        within(dialog).getByRole('button', { name: /Tap to open/ }),
       );
       await screen.findByText('[PLACEHOLDER BODY B]');
       await waitFor(() =>
@@ -135,7 +136,7 @@ describe('For You flows', () => {
       await closeReader();
       await waitFor(() => expect(document.activeElement).toBe(discovery));
       expect(
-        screen.getByRole('button', { name: 'Read again' }).textContent,
+        screen.getByRole('button', { name: /Read again/ }).textContent,
       ).toContain('[PLACEHOLDER TITLE A]');
     },
   );
@@ -182,7 +183,7 @@ describe('For You flows', () => {
     });
     await waitFor(() => expect(screen.queryByRole('dialog')).toBeNull());
     expect(window.location.pathname).toBe('/for-you');
-    fireEvent.click(screen.getByRole('button', { name: 'Read again' }));
+    fireEvent.click(screen.getByRole('button', { name: /Read again/ }));
     await screen.findByText('[PLACEHOLDER BODY A]');
     fireEvent(
       screen.getByRole('dialog'),
@@ -202,7 +203,7 @@ describe('For You flows', () => {
       expect(
         screen.getByRole('link', { name: 'Back to Home' }).getAttribute('href'),
       ).toBe('/');
-      expect(screen.queryByRole('button', { name: 'Open message' })).toBeNull();
+      expect(screen.queryByRole('button', { name: /Tap to open/ })).toBeNull();
     },
   );
 
@@ -217,8 +218,22 @@ describe('For You flows', () => {
       </BrowserRouter>,
     );
     expect(
-      screen.getByRole('button', { name: 'Read again' }).textContent,
+      screen.getByRole('button', { name: /Read again/ }).textContent,
     ).toContain('[PLACEHOLDER TITLE A]');
     expect(store.getSnapshot()).toEqual({ featuredId: 'a', seenIds: ['a'] });
   });
 });
+
+it.each([false, true])(
+  'uses the visible card action and title as its native name (read %s)',
+  (read) => {
+    render(
+      <ClosedMessage message={messages[0]!} read={read} onOpen={() => {}} />,
+    );
+    const cue = read ? /Read again/ : /Tap to open/;
+    const button = screen.getByRole('button', { name: cue });
+    expect(screen.getByRole('button', { name: /PLACEHOLDER TITLE A/ })).toBe(
+      button,
+    );
+  },
+);

@@ -136,10 +136,21 @@ describe('entry and first Reveal', () => {
       expect(state.value.isCompleted()).toBe(false);
       await tick(reduced ? timing.reduced : timing.scene);
       expect(document.querySelectorAll('.reveal-celebration')).toHaveLength(1);
-      fireEvent.click(screen.getByRole('button', { name: 'Continue to Home' }));
+      const moment = screen.getByRole('button', { name: 'A birthday moment' });
+      expect(moment.textContent).toBe('A birthday moment');
+      expect(moment.getAttribute('aria-disabled')).toBe('true');
+      expect(
+        screen.queryByRole('button', { name: 'Continue to Home' }),
+      ).toBeNull();
+      fireEvent.click(moment);
       await tick(timing.celebration - 1);
       expect(state.write).not.toHaveBeenCalled();
       await tick(1);
+      const continuation = screen.getByRole('button', {
+        name: 'Continue to Home',
+      });
+      expect(continuation.textContent).toBe('Continue');
+      expect(continuation.getAttribute('aria-disabled')).toBe('false');
       expect(state.write).toHaveBeenCalledTimes(1);
       expect(
         screen.getByRole('heading', { name: 'Happy Birthday' }),

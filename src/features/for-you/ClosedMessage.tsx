@@ -17,7 +17,6 @@ export function ClosedMessage({
         event.currentTarget.focus({ preventScroll: true });
         onOpen();
       }}
-      aria-label={read ? 'Read again' : 'Open message'}
     >
       <span className="for-you-label">For you</span>
       {message.title && (

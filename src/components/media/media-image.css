@@ -25,7 +25,7 @@
   display: grid;
   place-items: center;
   padding: var(--space-4);
-  color: var(--color-text-secondary);
+  color: var(--color-ink);
   font: var(--type-ui-body-size) / var(--type-ui-body-line-height)
     var(--font-ui);
   text-align: center;
